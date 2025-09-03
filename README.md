@@ -13,34 +13,6 @@ This system identifies companies showing buying intent by analyzing various sign
 - **Services**: Collector, Classifier, Ranker, and Orchestrator agents
 - **Frontend**: Streamlit UI for searching and viewing prospects with evidence
 
-## Quick Start
-
-1. **Setup Environment**:
-   ```bash
-   cp .env.example .env
-   # Edit .env with your configuration
-   ```
-
-2. **Start Infrastructure**:
-   ```bash
-   make up
-   ```
-
-3. **Run Services**:
-   ```bash
-   make run
-   ```
-
-4. **Access UI**:
-   Open http://localhost:8501
-
-## Development
-
-- `make up` - Start Neo4j + Qdrant containers
-- `make run` - Start all services
-- `make test` - Run tests
-- `make down` - Stop all containers
-
 ## Project Structure
 
 ```
@@ -62,5 +34,3 @@ intent-detection-agents/
 3. **Ranker**: Builds features and applies contextual bandit ranking
 4. **Orchestrator**: Coordinates the pipeline and manages job execution
 5. **App**: Provides UI for searching and viewing results
-
-For detailed architecture, see [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
