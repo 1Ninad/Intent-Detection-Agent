@@ -1,9 +1,6 @@
 # Intent Detection Agents
 
-A multi-agent system that detects B2B buying intent in real time by combining knowledge graphs, vector databases, and intelligent ranking algorithms.
-
-## Overview
-
+A multi-agent system that detects B2B buying intent in real time by combining knowledge graphs, vector databases, and ranking algorithms.
 This system identifies companies showing buying intent by analyzing various signals (job postings, RFPs, news, website updates) and ranking them based on relevance and preference indicators.
 
 ## Architecture
