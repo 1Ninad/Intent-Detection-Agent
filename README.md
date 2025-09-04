@@ -31,3 +31,31 @@ intent-detection-agents/
 3. **Ranker**: Builds features and applies contextual bandit ranking
 4. **Orchestrator**: Coordinates the pipeline and manages job execution
 5. **App**: Provides UI for searching and viewing results
+
+
+
+## Steps 1 & 2 Setup (Graph Foundation + Ingestion)
+
+### Quick Start
+``````powershell
+# Start services
+docker-compose up -d
+
+# Install dependencies
+python -m venv .venv
+.venv\Scripts\activate
+pip install -r requirements.txt
+
+# Configure API keys for Step 2
+python scripts\setup_validator.py --wizard
+
+# Test Graph API (Step 1)
+python services\graph\test_api.py
+
+# Run ingestion (Step 2)  
+python services\collector\ingestion_orchestrator.py --mode single
+
+#Services
+
+Neo4j Browser: http://localhost:7474 (username:neo4j/password:password123)
+Qdrant Dashboard: http://localhost:6333/dashboard

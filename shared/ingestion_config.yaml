@@ -1,0 +1,45 @@
+embedding:
+  batch_size: 16
+  max_concurrent_processing: 5
+  model_name: all-MiniLM-L6-v2
+  model_type: sentence_transformer  # Changed from 'openai' to 'sentence_transformer'
+  # Removed openai_api_key since we're using local embeddings now
+
+log_level: INFO
+
+neo4j_password: password123
+neo4j_uri: bolt://localhost:7687
+neo4j_user: neo4j
+
+qdrant:
+  collection_name: signals
+  embedding_dimension: 384  # Correct dimension for all-MiniLM-L6-v2
+  host: localhost
+  port: 6333
+
+sources:
+  executives:
+    cache_ttl: 3600
+    enabled: true
+    requests_per_minute: 30
+  funding:
+    cache_ttl: 3600
+    enabled: true
+    requests_per_minute: 30
+  jobs:
+    api_keys:
+      adzuna_id: 2dfd637c
+      adzuna_key: 408c38a6091c2a1b681b70509b421652
+    cache_ttl: 7200
+    enabled: true
+    requests_per_minute: 60
+  news:
+    api_keys:
+      newsapi: fa02662f83ac4a8dbe3cf9dce209bbb8
+    cache_ttl: 3600
+    enabled: true
+    requests_per_minute: 30
+  tech:
+    cache_ttl: 1800
+    enabled: true
+    requests_per_minute: 60
