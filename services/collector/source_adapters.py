@@ -199,18 +199,18 @@ class NewsAdapter(BaseSourceAdapter):
     async def fetch_signals(self, query_params: Dict = None) -> List[RawSignal]:
         """Fetch news signals"""
         signals = []
-        
-        # Example: NewsAPI integration
-        if 'newsapi_key' in self.config:
+
+        news_cfg = self.config or {}  # ✅ safe fallback
+        api_key = news_cfg.get('newsapi_key')
+        if api_key:
             url = "https://newsapi.org/v2/everything"
             params = {
-                'apiKey': self.config['newsapi_key'],
-                'q': query_params.get('query', 'technology startup funding'),
+                'apiKey': api_key,
+                'q': (query_params or {}).get('query', 'technology startup funding'),
                 'sortBy': 'publishedAt',
                 'pageSize': 100,
                 'language': 'en'
             }
-            
             data = await self.fetch_url(url, params)
             if data and 'articles' in data:
                 for article in data['articles']:
@@ -219,6 +219,7 @@ class NewsAdapter(BaseSourceAdapter):
                         signals.append(signal)
         
         return signals
+
     
     def normalize_signal(self, raw_data: Dict) -> RawSignal:
         """Normalize news article to RawSignal"""
@@ -238,18 +239,20 @@ class JobsAdapter(BaseSourceAdapter):
     async def fetch_signals(self, query_params: Dict = None) -> List[RawSignal]:
         """Fetch job posting signals"""
         signals = []
-        
-        # Example: Adzuna Jobs API
-        if 'adzuna_id' in self.config and 'adzuna_key' in self.config:
-            url = f"https://api.adzuna.com/v1/api/jobs/us/search/1"
+
+        jobs_cfg = self.config or {}  # ✅ safe fallback
+        adzuna_id = jobs_cfg.get("adzuna_id")
+        adzuna_key = jobs_cfg.get("adzuna_key")
+
+        if adzuna_id and adzuna_key:
+            url = "https://api.adzuna.com/v1/api/jobs/us/search/1"
             params = {
-                'app_id': self.config['adzuna_id'],
-                'app_key': self.config['adzuna_key'],
-                'what': query_params.get('query', 'software engineer'),
+                'app_id': adzuna_id,
+                'app_key': adzuna_key,
+                'what': (query_params or {}).get('query', 'software engineer'),
                 'results_per_page': 50,
                 'sort_by': 'date'
             }
-            
             data = await self.fetch_url(url, params)
             if data and 'results' in data:
                 for job in data['results']:

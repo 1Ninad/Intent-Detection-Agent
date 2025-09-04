@@ -1,0 +1,59 @@
+
+# EDI-Graph Ingestion Configuration
+sources:
+  news:
+    enabled: true
+    requests_per_minute: 30
+    cache_ttl: 1800
+    timeout: 30
+    retry_attempts: 3
+    api_keys:
+      newsapi: "your_newsapi_key_here"
+    custom_headers:
+      Accept: "application/json"
+
+  jobs:
+    enabled: true
+    requests_per_minute: 60
+    cache_ttl: 7200
+    timeout: 45
+    api_keys:
+      adzuna_id: "your_adzuna_id"
+      adzuna_key: "your_adzuna_key"
+
+  funding:
+    enabled: true
+    requests_per_minute: 30
+    cache_ttl: 1800
+    timeout: 30
+
+  tech:
+    enabled: true
+    requests_per_minute: 60
+    cache_ttl: 1800
+    timeout: 30
+
+  executives:
+    enabled: true
+    requests_per_minute: 30
+    cache_ttl: 1800
+    timeout: 30
+
+qdrant:
+  host: "localhost"
+  port: 6333
+  collection_name: "signals"
+  embedding_dimension: 384
+  similarity_threshold: 0.8
+
+embedding:
+  model_type: "sentence_transformer"
+  model_name: "all-MiniLM-L6-v2"
+  batch_size: 32
+  max_concurrent_processing: 10
+
+neo4j_uri: "bolt://localhost:7687"
+neo4j_user: "neo4j"
+neo4j_password: "password"
+log_level: "INFO"
+metrics_enabled: true
