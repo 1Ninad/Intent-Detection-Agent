@@ -19,7 +19,7 @@ services:
       - ./neo4j/import:/import
 
   qdrant:
-    image: qdrant/qdrant:v1.11.0  # stable release
+    image: qdrant/qdrant:latest  # stable release
     container_name: qdrant
     restart: unless-stopped
     ports:

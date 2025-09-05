@@ -1,0 +1,9 @@
+open: 0.1
+reply: 0.5
+meeting: 1.0
+opportunity: 1.5
+win: 3.0
+bounce: -0.2
+spam: -1.0
+reject: -0.1
+diversity_bonus: 0.05
