@@ -1,0 +1,10 @@
+[
+  {
+    "Company": "Beta Inc",
+    "fitScore": 0.85,
+    "preferenceIndicator": 0.70,
+    "signals": ["Funding Round", "Tech Adoption"],
+    "evidence": ["https://news.site/beta1", "https://tech.site/beta2"],
+    "reason": "Raised Series B and adopted new tech"
+  }
+]

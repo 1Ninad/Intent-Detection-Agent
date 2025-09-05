@@ -1,0 +1,26 @@
+[
+  {
+    "Company": "c2",
+    "fitScore": 0.45,
+    "preferenceIndicator": null,
+    "signals": ["recentVolume", "sentiment", "funding"],
+    "evidence": [],
+    "reason": "techSignals 0.00, recentVolume 1.00, execChanges 0.00, sentiment 1.00, funding 1.00"
+  },
+  {
+    "Company": "c1",
+    "fitScore": 0.35,
+    "preferenceIndicator": null,
+    "signals": ["recentVolume", "sentiment"],
+    "evidence": [],
+    "reason": "techSignals 0.00, recentVolume 1.00, execChanges 0.00, sentiment 1.00, funding 0.00"
+  },
+  {
+    "Company": "c3",
+    "fitScore": 0.35,
+    "preferenceIndicator": null,
+    "signals": ["recentVolume", "sentiment"],
+    "evidence": [],
+    "reason": "techSignals 0.00, recentVolume 1.00, execChanges 0.00, sentiment 1.00, funding 0.00"
+  }
+]
