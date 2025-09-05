@@ -1,9 +1,10 @@
 """
-FastAPI app exposing /run. Calls the LangGraph pipeline above.
+FastAPI app exposing /run. Orchestrator entrypoint.
+Accepts freeText from Streamlit and passes it into the pipeline state.
 """
 
-from fastapi import FastAPI
 from datetime import datetime, timezone
+from fastapi import FastAPI
 from services.classifier.classifier_types import RunRequest
 from services.orchestrator.flow import run_pipeline
 
@@ -17,10 +18,24 @@ def health():
 
 @app.post("/run")
 async def run_endpoint(request: RunRequest):
+    """
+    Step 2 hand-off:
+    - FastAPI parses body into RunRequest (freeText/useWebSearch supported).
+    - Pass the request object to run_pipeline, which will propagate fields
+      into the orchestrator state (flow.py).
+    """
     out = run_pipeline(request)
+
     return {
         "runId": f"run_{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S')}",
         "processedCompanies": out["processedCompanies"],
         "labeledSignals": out["labeledSignals"],
         "results": out["results"],
+        # Optional debugging echo for later steps (harmless if None)
+        "echo": {
+            "configId": request.configId,
+            "topK": request.topK,
+            "useWebSearch": request.useWebSearch,
+            "hasFreeText": bool((request.freeText or "").strip()),
+        },
     }
