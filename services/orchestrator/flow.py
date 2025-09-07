@@ -1,20 +1,27 @@
 """
-LangGraph pipeline:
-ProspectDiscovery → SignalClassification → Scoring
-
-Step 2 update:
-- Thread freeText/useWebSearch/webSearchOptions from RunRequest into the
-  pipeline state. (Intent parsing and web search are added in later steps.)
+LangGraph pipeline (updated Step 5):
+parse_intent → web_search → ProspectDiscovery → SignalClassification → Scoring
 """
+import sys
+import os
+
+# Add project root to Python path
+sys.path.append(os.path.abspath(os.path.dirname(__file__)))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "services")))
 
 from typing import List, Dict, Any, TypedDict, Optional
 from langgraph.graph import StateGraph, END
 
-# Use your existing node functions exactly as they are
+# Existing nodes
 from services.orchestrator.nodes.prospect_discovery import discoverProspects
 from services.orchestrator.nodes.signal_classification import classifyCompanySignals
 from services.classifier.fit_score import compute_and_write_fit_scores
 from services.classifier.classifier_types import RunRequest, FitScore
+
+# New nodes
+from services.orchestrator.nodes.intent_parser import parse_intent
+from services.orchestrator.nodes.web_search import web_search_node
+from services.orchestrator.db.neo4j_writer import Neo4jWriter
 
 
 class PipelineState(TypedDict, total=False):
@@ -25,14 +32,33 @@ class PipelineState(TypedDict, total=False):
     labeledSignals: int
     results: List[Dict[str, Any]]
 
-    # NEW (Step 2 threading only; consumed in later steps)
+    # NEW (Step 5)
     freeText: Optional[str]
     useWebSearch: bool
     webSearchOptions: Dict[str, Any]
+    webSignals: List[Any]
+
+
+# -------------------- Node Wrappers --------------------
+
+def _n_parse_intent(state: PipelineState) -> PipelineState:
+    if state.get("freeText"):
+        state = parse_intent(state)
+    return state
+
+
+def _n_web_search(state: PipelineState) -> PipelineState:
+    if state.get("useWebSearch", False):
+        state = web_search_node(state)
+        # Write signals to Neo4j
+        writer = Neo4jWriter(password="your_neo4j_password")  # update with real credentials
+        writer.merge_signals(state.get("webSignals", []))
+        writer.close()
+    return state
 
 
 def _n_prospects(state: PipelineState) -> PipelineState:
-    """Wrap existing Customer Discovery."""
+    """Existing Customer Discovery node."""
     top_k = state.get("topK", 200)
     config_id = state.get("configId", "default")
     state["companyIds"] = discoverProspects(config_id, topK=top_k)
@@ -40,7 +66,7 @@ def _n_prospects(state: PipelineState) -> PipelineState:
 
 
 def _n_classify(state: PipelineState) -> PipelineState:
-    """Wrap existing classification. It fetches signals internally and writes back to Neo4j."""
+    """Existing classification node."""
     company_ids = state.get("companyIds", [])
     classified_map = classifyCompanySignals(company_ids, perCompanyLimit=20)
     state["labeledSignals"] = sum(len(v) for v in classified_map.values())
@@ -48,7 +74,7 @@ def _n_classify(state: PipelineState) -> PipelineState:
 
 
 def _n_score(state: PipelineState) -> PipelineState:
-    """Compute fit scores and write them to Neo4j."""
+    """Compute FitScores and write to Neo4j."""
     company_ids = state.get("companyIds", [])
     fit_scores: List[FitScore] = compute_and_write_fit_scores(company_ids)
     results = [
@@ -60,16 +86,26 @@ def _n_score(state: PipelineState) -> PipelineState:
     return state
 
 
+# -------------------- Build Graph --------------------
+
 def _build_graph():
     g = StateGraph(PipelineState)
+
+    # Add nodes
+    g.add_node("parse_intent", _n_parse_intent)
+    g.add_node("web_search", _n_web_search)
     g.add_node("prospects", _n_prospects)
     g.add_node("classify", _n_classify)
     g.add_node("score", _n_score)
 
-    g.set_entry_point("prospects")
+    # Define flow
+    g.set_entry_point("parse_intent")
+    g.add_edge("parse_intent", "web_search")
+    g.add_edge("web_search", "prospects")
     g.add_edge("prospects", "classify")
     g.add_edge("classify", "score")
     g.add_edge("score", END)
+
     return g.compile()
 
 
@@ -77,15 +113,13 @@ def _build_graph():
 _graph = _build_graph()
 
 
+# -------------------- Run Pipeline --------------------
+
 def run_pipeline(req: RunRequest) -> Dict[str, Any]:
-    """
-    Step 2: Build initial state including freeText/useWebSearch/webSearchOptions
-    so later steps (IntentParser/WebSearch) can use them.
-    """
+    """Build initial state with freeText/useWebSearch/webSearchOptions and run full pipeline."""
     initial: PipelineState = {
         "configId": req.configId or "default",
         "topK": req.topK,
-        # Thread new fields even if not used yet
         "freeText": (req.freeText or "").strip() if req.freeText else None,
         "useWebSearch": bool(req.useWebSearch),
         "webSearchOptions": (req.webSearchOptions.dict() if req.webSearchOptions else {}),
