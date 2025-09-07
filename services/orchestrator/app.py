@@ -1,15 +1,13 @@
-"""
-FastAPI app exposing /run. Orchestrator entrypoint.
-Accepts freeText from Streamlit and passes it into the pipeline state.
-"""
+""" FastAPI app exposing /run. Orchestrator entrypoint.
+Accepts freeText from Streamlit and passes it into the pipeline state. """
 
 from datetime import datetime, timezone
 from fastapi import FastAPI
 from services.classifier.classifier_types import RunRequest
 from services.orchestrator.flow import run_pipeline
-
 app = FastAPI(title="Intent Orchestrator", version="1.0.0")
-
+from dotenv import load_dotenv
+load_dotenv()
 
 @app.get("/")
 def health():
@@ -31,7 +29,6 @@ async def run_endpoint(request: RunRequest):
         "processedCompanies": out["processedCompanies"],
         "labeledSignals": out["labeledSignals"],
         "results": out["results"],
-        # Optional debugging echo for later steps (harmless if None)
         "echo": {
             "configId": request.configId,
             "topK": request.topK,
