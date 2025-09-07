@@ -19,7 +19,8 @@ from services.classifier.fit_score import compute_and_write_fit_scores
 from services.classifier.classifier_types import RunRequest, FitScore
 
 # New nodes
-from services.orchestrator.nodes.intent_parser import parse_intent
+# ***** CHANGED: intent_parser.parse_intent RETURNS IntentSpec (not a wrapper). We keep intent_to_dict to serialize. *****
+from services.orchestrator.nodes.intent_parser import parse_intent, intent_to_dict
 from services.orchestrator.nodes.web_search import web_search_node
 from services.orchestrator.db.neo4j_writer import Neo4jWriter
 
@@ -38,22 +39,41 @@ class PipelineState(TypedDict, total=False):
     webSearchOptions: Dict[str, Any]
     webSignals: List[Any]
 
+    # ***** CHANGED: STORE PARSED INTENT + SOURCE IN STATE FOR DOWNSTREAM NODES *****
+    intent: Dict[str, Any]
+    intentSource: str  # "llm" for LLM-only parser
+
 
 # -------------------- Node Wrappers --------------------
 
+# flow.py (only this node changes)
+
+from services.orchestrator.nodes.intent_parser import parse_intent, intent_to_dict
+
 def _n_parse_intent(state: PipelineState) -> PipelineState:
     if state.get("freeText"):
-        state = parse_intent(state)
+        companies = parse_intent(state["freeText"])  # now returns list[CompanyIntent]
+        state["intent"] = intent_to_dict(companies)  # list of dicts
+        state["intentSource"] = "llm"
     return state
+
 
 
 def _n_web_search(state: PipelineState) -> PipelineState:
     if state.get("useWebSearch", False):
+        # web_search_node should read any needed fields from state,
+        # including the newly added state["intent"].
         state = web_search_node(state)
-        # Write signals to Neo4j
-        writer = Neo4jWriter(password="your_neo4j_password")  # update with real credentials
-        writer.merge_signals(state.get("webSignals", []))
-        writer.close()
+
+        # ***** CHANGED: WRITE TO NEO4J ONLY IF PASSWORD IS PROVIDED VIA ENV *****
+        neo4j_password = os.getenv("NEO4J_PASSWORD", "").strip()
+        if neo4j_password:
+            writer = Neo4jWriter(password=neo4j_password)
+            try:
+                writer.merge_signals(state.get("webSignals", []))
+            finally:
+                writer.close()
+        # If no password present, skip write silently (safe no-op in local dev)
     return state
 
 
@@ -132,4 +152,10 @@ def run_pipeline(req: RunRequest) -> Dict[str, Any]:
         "processedCompanies": len(final_state.get("companyIds", [])),
         "labeledSignals": final_state.get("labeledSignals", 0),
         "results": results,
+
+        # ***** CHANGED: OPTIONAL DEBUG FIELDS TO VERIFY INTENT PLUMBING (SAFE TO KEEP) *****
+        "debug": {
+            "intent": final_state.get("intent", {}),
+            "intentSource": final_state.get("intentSource", "llm"),
+        },
     }
