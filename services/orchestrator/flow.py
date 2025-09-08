@@ -61,19 +61,15 @@ def _n_parse_intent(state: PipelineState) -> PipelineState:
 
 def _n_web_search(state: PipelineState) -> PipelineState:
     if state.get("useWebSearch", False):
-        # web_search_node should read any needed fields from state,
-        # including the newly added state["intent"].
         state = web_search_node(state)
 
-        # ***** CHANGED: WRITE TO NEO4J ONLY IF PASSWORD IS PROVIDED VIA ENV *****
-        neo4j_password = os.getenv("NEO4J_PASSWORD", "").strip()
-        if neo4j_password:
-            writer = Neo4jWriter(password=neo4j_password)
+        # WRITE TO NEO4J ONLY IF PASSWORD IS PROVIDED VIA ENV
+        if os.getenv("NEO4J_PASSWORD", "").strip():
+            writer = Neo4jWriter()
             try:
-                writer.merge_signals(state.get("webSignals", []))
+                writer.merge_signals(state.get("webSignals") or [])
             finally:
                 writer.close()
-        # If no password present, skip write silently (safe no-op in local dev)
     return state
 
 

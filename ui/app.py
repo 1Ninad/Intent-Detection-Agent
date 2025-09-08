@@ -18,7 +18,7 @@ if st.button("Search"):
         st.error("Please enter some text to search.")
     else:
         with st.spinner("Searching..."):
-            url = "http://localhost:8000/run"  # FastAPI endpoint
+            url = "http://localhost:8004/run"  # FastAPI endpoint
             payload = {
                 "freeText": free_text,
                 "useWebSearch": use_web_search

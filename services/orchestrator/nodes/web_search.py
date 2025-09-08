@@ -201,7 +201,7 @@ class WebSearchNode:
 
         if self.neo4j_writer:
             try:
-                self.neo4j_writer.merge_signals(uniques)
+                pass
             except Exception:
                 logger.exception("Neo4jWriter.merge_signals failed; continuing without DB persistence.")
 
