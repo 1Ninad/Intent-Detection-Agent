@@ -1,4 +1,5 @@
 # services/orchestrator/nodes/web_search.py
+
 import logging
 import time
 from typing import List, Dict, Any
@@ -7,18 +8,16 @@ from services.shared.clients.serper_client import SerperClient
 from services.shared.utils.normalizers import normalize_serper_web_item, normalize_serper_news_item
 from services.shared.utils.dedupe import dedupe_signals
 
-
 # Optional Neo4j writer
 try:
     from services.orchestrator.db.neo4j_writer import Neo4jWriter
     HAS_NEO4J = True
 except Exception:
-    Neo4JWriter = None
+    Neo4jWriter = None
     HAS_NEO4J = False
 
 logger = logging.getLogger(__name__)
 logger.addHandler(logging.NullHandler())
-
 
 class WebSearchNode:
     """
@@ -36,11 +35,8 @@ class WebSearchNode:
         self.client = serper_client or (SerperClient() if SerperClient else None)
         self.neo4j_writer = neo4j_writer or (Neo4jWriter() if HAS_NEO4J else None)
         self.config = config or {}
-        # defaults
         self.default_per_query = int(self.config.get("default_max_results", 10))
         self.max_queries = int(self.config.get("max_queries", 20))
-    
-    
 
     def build_queries(self, intent: Dict[str, Any]) -> List[str]:
         qlist: List[str] = []
@@ -74,10 +70,8 @@ class WebSearchNode:
 
         # 3) Hiring
         if roleKeywords:
-            # Replace the broken line with this:
             joined_roles = '" OR "'.join(roleKeywords[:5])
             terms = [f'("{joined_roles}")', '(hiring OR "job opening" OR "we are hiring")']
-
             if industry: terms.append(join(industry[:3]))
             if geo: terms.append(join(geo[:3]))
             qlist.append(join(terms))
@@ -109,7 +103,6 @@ class WebSearchNode:
                 normalized.append(q2)
         return normalized[: self.max_queries]
 
-
     def _search_with_retry(self, mode: str, query: str, num: int) -> Dict[str, Any]:
         if not self.client:
             raise RuntimeError("Serper client not configured.")
@@ -131,27 +124,17 @@ class WebSearchNode:
                 time.sleep(backoff * (2 ** (tries - 1)))
         return {}
 
-
-
     def run(self, state: Dict[str, Any], context: Dict[str, Any] = None) -> Dict[str, Any]:
-        """
-        Execute web search flow and set state['webSignals'].
-        Expects state["intent"] to be present (intent.to_dict()) — otherwise it will attempt to read freeText from state.
-        """
         intent = state.get("intent") or {}
-        # if IntentSpec object passed, convert
         try:
-            # Handle if someone put IntentSpec instance
             if hasattr(intent, "to_dict"):
                 intent = intent.to_dict()
         except Exception:
             pass
 
         if not intent:
-            # Try to parse from freeText (best-effort)
             free_text = state.get("freeText") or state.get("input") or state.get("query") or ""
             if free_text:
-                # lazy import to avoid circular dependency when not required
                 try:
                     from services.orchestrator.nodes.intent_parser import parse_intent
                     parsed = parse_intent(free_text)
@@ -169,10 +152,6 @@ class WebSearchNode:
             return state
 
         max_per_query = intent.get("maxResultsPerTask") or self.default_per_query
-
-        
-
-
         raw_web_items, raw_news_items = [], []
         for q in queries:
             try:
@@ -180,24 +159,13 @@ class WebSearchNode:
                 news_payload = self._search_with_retry("news", q, num=max_per_query)
             except Exception:
                 continue
-
             web_items  = (web_payload or {}).get("organic", []) or []
             news_items = (news_payload or {}).get("news", []) or []
-
             for r in web_items:  r["_query"] = q
             for r in news_items: r["_query"] = q
-
             raw_web_items.extend(web_items)
             raw_news_items.extend(news_items)
-        
 
-
-        
-
-
-
-
-        # Normalize -> Signal instances
         signals = []
         ctx_industry        = intent.get("industry") or []
         ctx_geo             = intent.get("geo") or []
@@ -231,14 +199,18 @@ class WebSearchNode:
             logger.exception("dedupe_signals failed; will use raw list.")
             uniques = signals
 
-
-
         if self.neo4j_writer:
             try:
-                # Expect merge_signals(signals_list)
                 self.neo4j_writer.merge_signals(uniques)
             except Exception:
                 logger.exception("Neo4jWriter.merge_signals failed; continuing without DB persistence.")
 
         state["webSignals"] = [s.to_dict() for s in uniques]
         return state
+
+
+# --- Expose web_search_node function for compatibility ---
+_default_web_search_node = WebSearchNode()
+
+def web_search_node(state, context=None):
+    return _default_web_search_node.run(state, context)
