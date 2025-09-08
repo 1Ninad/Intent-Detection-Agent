@@ -2,19 +2,20 @@
 import os
 import sys
 import json
+from datetime import datetime
+from dotenv import load_dotenv
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_ROOT = os.path.abspath(os.path.join(THIS_DIR, ".."))
 if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
-from dotenv import load_dotenv
 load_dotenv()
 
 from services.orchestrator.nodes.intent_parser import parse_intent, intent_to_dict
 from services.orchestrator.nodes.web_search import WebSearchNode
 from services.orchestrator.db.neo4j_writer import Neo4jWriter
-from datetime import datetime
+
 
 def test_neo4j():
     writer = Neo4jWriter()
@@ -36,7 +37,15 @@ def test_neo4j():
     writer.close()  # safely closes driver
 
 def test_intent_and_search():
-    free_text = input("Enter free-text for intent parsing and web search:\n> ")
+    # Use command-line arg if provided, else prompt
+    if len(sys.argv) > 1:
+        free_text = " ".join(sys.argv[1:])
+    else:
+        free_text = input("Enter free-text for intent parsing and web search:\n> ")
+
+    if not free_text.strip():
+        print("❌ No free-text provided. Exiting.")
+        return
 
     # 1) OpenAI intent parse (real)
     intent_obj = parse_intent(free_text)
@@ -68,3 +77,4 @@ if __name__ == "__main__":
     test_neo4j()
     print("\nRunning Intent & Web Search Test...")
     test_intent_and_search()
+    
