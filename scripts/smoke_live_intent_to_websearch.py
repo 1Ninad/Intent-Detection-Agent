@@ -33,12 +33,10 @@ def test_neo4j():
 
     writer.merge_signals(signals)
     print("Signals merged successfully!")
+    writer.close()  # safely closes driver
 
 def test_intent_and_search():
-    free_text = (
-        "We sell an ML observability tool. Target US + Europe SaaS hiring data engineers; "
-        "focus on snowflake/databricks; limit 8."
-    )
+    free_text = input("Enter free-text for intent parsing and web search:\n> ")
 
     # 1) OpenAI intent parse (real)
     intent_obj = parse_intent(free_text)
@@ -53,11 +51,17 @@ def test_intent_and_search():
 
     # 3) Output
     signals = out.get("webSignals", [])
-    print(f"\nQUERIES BUILT: {len(node.build_queries(intent))}")
+    print(f"\nQUERIES_BUILT: {len(node.build_queries(intent))}")
     print(f"WEB_SIGNALS: {len(signals)}")
     if signals:
         for s in signals[:3]:
             print(json.dumps(s, indent=2))
+
+    # 4) Persist signals to Neo4j
+    writer = Neo4jWriter()
+    writer.merge_signals(signals)
+    print(f"{len(signals)} signals merged into Neo4j successfully!")
+    writer.close()
 
 if __name__ == "__main__":
     print("Running Neo4j Test...")
