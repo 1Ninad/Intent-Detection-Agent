@@ -5,7 +5,7 @@ aiohttp==3.8.6
 asyncio-throttle==1.0.2
 backoff==2.2.1
 PyYAML==6.0.1
-urllib3==2.0.7
+urllib3==1.26.18
 
 # Core framework
 fastapi==0.104.1

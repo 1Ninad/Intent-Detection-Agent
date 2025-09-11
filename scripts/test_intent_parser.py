@@ -31,7 +31,7 @@ def main():
 
         "We provide a CDP and product analytics bundle for ecommerce. Mid-market brands in DACH hiring data platform teams; avoid legacy on-prem; funding stage series b; cap 25.",
 
-        "We offer an on-prem vector DB. Enterprise security or defense in the US exploring RAG; roles include data engineer, MLOps; prefer aws/kubernetes; exclude Palantir."
+        "We offer an on-premise vector DB. Enterprise security or defense in the US exploring RAG; roles include data engineer, MLOps; prefer aws/kubernetes; exclude Palantir."
     ]
 
     for i, text in enumerate(cases, 1):
