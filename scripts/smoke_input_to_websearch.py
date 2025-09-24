@@ -46,7 +46,7 @@ def test_kitchen_bath_search():
         print("\nPPLX_API_KEY not set. Export it and re-run.")
         return
 
-    print("\nRunning Perplexity search (kitchen & bath visualization signals)...")
+    print("\nRunning Perplexity search...")
     results = searchProspectSignals(
         inputText=FREE_TEXT,
         limit=LIMIT,
