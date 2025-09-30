@@ -1,6 +1,9 @@
 """
-LangGraph pipeline (no intent parser):
-web_search → ProspectDiscovery → SignalClassification → Scoring
+LangGraph pipeline (corrected):
+web_search → ingest_signals → classify → score
+
+Perplexity web search returns companies + signals together.
+No need for separate prospect discovery!
 """
 
 import os
@@ -14,17 +17,14 @@ from langgraph.graph import StateGraph, END
 sys.path.append(os.path.abspath(os.path.dirname(__file__)))
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-# Existing nodes (unchanged)
-from services.orchestrator.nodes.prospect_discovery import discoverProspects
+# Nodes
+from services.orchestrator.nodes.ingest_signals import ingestSignalsFromWebSearch
 from services.orchestrator.nodes.signal_classification import classifyCompanySignals
 from services.classifier.fit_score import compute_and_write_fit_scores
 from services.classifier.classifier_types import RunRequest, FitScore
 
 # Perplexity-backed search
 from services.pplx_signal_search import searchProspectSignals
-
-# Neo4j writer
-from services.orchestrator.db.neo4j_writer import Neo4jWriter
 
 logger = logging.getLogger("orchestrator.flow")
 if not logger.handlers:
@@ -47,22 +47,13 @@ class PipelineState(TypedDict, total=False):
     # Results carried through the pipeline
     companyIds: List[str]
     webSignals: List[Dict[str, Any]]
+    ingestStats: Dict[str, Any]  # Stats from ingestion (companies, signals, embeddings)
     labeledSignals: int
     results: List[Dict[str, Any]]
 
 
 def _now_iso() -> str:
     return datetime.now(timezone.utc).replace(microsecond=0).isoformat()
-
-
-def _maybe_write_neo4j(signals: List[Dict[str, Any]]) -> None:
-    if not os.getenv("NEO4J_PASSWORD", "").strip():
-        return
-    writer = Neo4jWriter()
-    try:
-        writer.merge_signals(signals or [])
-    finally:
-        writer.close()
 
 
 def _n_web_search(state: PipelineState) -> PipelineState:
@@ -96,7 +87,6 @@ def _n_web_search(state: PipelineState) -> PipelineState:
             model=model,
         )
         state["webSignals"] = signals
-        _maybe_write_neo4j(signals)
         logger.info(f"Perplexity search returned {len(signals)} signals")
     except Exception as e:
         logger.error(f"Perplexity search failed: {e}")
@@ -105,10 +95,22 @@ def _n_web_search(state: PipelineState) -> PipelineState:
     return state
 
 
-def _n_prospects(state: PipelineState) -> PipelineState:
-    top_k = state.get("topK", 200)
-    config_id = state.get("configId", "default")
-    state["companyIds"] = discoverProspects(config_id, topK=top_k)
+def _n_ingest(state: PipelineState) -> PipelineState:
+    """
+    Ingest signals from web search: write to Neo4j, generate embeddings, store in Qdrant.
+    This replaces the old 'prospects' node.
+    """
+    web_signals = state.get("webSignals", [])
+    if not web_signals:
+        logger.warning("No web signals to ingest")
+        state["companyIds"] = []
+        state["ingestStats"] = {"companies": 0, "signals": 0, "embeddings": 0}
+        return state
+
+    result = ingestSignalsFromWebSearch(web_signals)
+    state["companyIds"] = result["companyIds"]
+    state["ingestStats"] = result["stats"]
+    logger.info(f"Ingested: {result['stats']}")
     return state
 
 
@@ -135,13 +137,13 @@ def _build_graph():
     g = StateGraph(PipelineState)
 
     g.add_node("web_search", _n_web_search)
-    g.add_node("prospects", _n_prospects)
+    g.add_node("ingest", _n_ingest)
     g.add_node("classify", _n_classify)
     g.add_node("score", _n_score)
 
     g.set_entry_point("web_search")
-    g.add_edge("web_search", "prospects")
-    g.add_edge("prospects", "classify")
+    g.add_edge("web_search", "ingest")
+    g.add_edge("ingest", "classify")
     g.add_edge("classify", "score")
     g.add_edge("score", END)
 
@@ -174,6 +176,7 @@ def run_pipeline(req: RunRequest) -> Dict[str, Any]:
         # Optional debugging fields
         "debug": {
             "webSignalsCount": len(final_state.get("webSignals", []) or []),
+            "ingestStats": final_state.get("ingestStats", {}),
             "runAt": _now_iso(),
         },
     }
