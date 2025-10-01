@@ -25,7 +25,7 @@ Sales teams can input their company description and ideal customer profile in pl
 - **Backend Pipeline**: Python, FastAPI, LangGraph
 - **Databases**: Neo4j (graph), Qdrant (vectors)
 - **AI/ML**: OpenAI GPT-4, Perplexity AI, SentenceTransformers
-- **Frontend**: Streamlit
+- **Frontend**: Next.js 14, React 18, TypeScript, Tailwind CSS (legacy Streamlit available)
 - **Infrastructure**: Docker Compose
 
 ### System Components
@@ -35,7 +35,7 @@ Sales teams can input their company description and ideal customer profile in pl
 3. **Classification Service**: OpenAI-powered signal type classification with fallback rules
 4. **Scoring Engine**: Computes fit scores using weighted features (tech signals 35%, volume 25%, executive changes 20%, sentiment 10%, funding 10%)
 5. **Orchestrator**: LangGraph-based pipeline coordinating the workflow
-6. **UI**: Streamlit interface for sales teams
+6. **UI**: Modern Next.js/React frontend with real-time API integration
 
 ### Data Model
 
@@ -55,6 +55,7 @@ Signal {id, type, text, source, url, publishedAt, confidence}
 ### Prerequisites
 
 - Python 3.11+
+- Node.js 18+ (for Next.js frontend)
 - Docker and Docker Compose
 - API keys for: OpenAI, Perplexity AI
 
@@ -91,34 +92,56 @@ Wait 10 seconds for databases to initialize.
 
 ## Usage
 
-### Quick Start
+### Quick Start (Next.js Frontend)
 
 Run the complete system with one script:
 ```bash
-./run_demo.sh
+./run_demo_nextjs.sh
 ```
 
 This starts:
 - Neo4j (port 7474, 7687)
 - Qdrant (port 6333)
 - Orchestrator API (port 8004)
-- Streamlit UI (port 8501)
+- Next.js Frontend (port 3000)
 
-Then open http://localhost:8501 in your browser.
+Then open **http://localhost:3000** in your browser.
+
+### Quick Start (Legacy Streamlit Frontend)
+
+```bash
+./run_demo.sh
+```
+
+Opens Streamlit UI on http://localhost:8501
 
 ### Manual Start
 
-**Terminal 1: Start Orchestrator**
+**Terminal 1: Start Databases**
+```bash
+docker-compose up -d
+```
+
+**Terminal 2: Start Orchestrator**
 ```bash
 python -m uvicorn services.orchestrator.app:app --host 0.0.0.0 --port 8004
 ```
 
-**Terminal 2: Start UI**
+**Terminal 3: Start Frontend**
+
+For Next.js (recommended):
 ```bash
-streamlit run ui/app.py --server.port 8501
+cd services/frontend_new
+npm install  # First time only
+npm run dev
 ```
 
-**Terminal 3: Verify Services**
+For Streamlit (legacy):
+```bash
+streamlit run services/frontend/streamlit_app.py --server.port 8501
+```
+
+**Verify Services**
 ```bash
 curl http://localhost:8004/  # Should return {"status":"ok"}
 ```
@@ -167,9 +190,18 @@ Intent-Detection-Agents/
 │   ├── ranker/               # Future: contextual bandit
 │   │   ├── preference_service.py
 │   │   └── ranker_service.py
-│   └── pplx_signal_search.py # Perplexity integration
-├── ui/
-│   └── app.py                # Streamlit interface
+│   ├── pplx_signal_search.py # Perplexity integration
+│   ├── frontend_new/         # Next.js/React frontend (RECOMMENDED)
+│   │   ├── app/              # Next.js App Router
+│   │   │   ├── page.tsx      # Main search page
+│   │   │   └── layout.tsx    # Root layout
+│   │   ├── lib/              # Utilities
+│   │   │   ├── api.ts        # API client
+│   │   │   └── types.ts      # TypeScript interfaces
+│   │   ├── package.json
+│   │   └── README.md
+│   └── frontend/             # Legacy Streamlit frontend
+│       └── streamlit_app.py
 ├── shared/
 │   └── graph.py              # Neo4j utilities
 ├── database/
@@ -178,7 +210,8 @@ Intent-Detection-Agents/
 │           └── schema.cypher # Graph schema
 ├── docker-compose.yml        # Database infrastructure
 ├── requirements.txt
-└── run_demo.sh              # One-command startup
+├── run_demo_nextjs.sh       # One-command startup (Next.js)
+└── run_demo.sh              # One-command startup (Streamlit)
 ```
 
 ## Pipeline Flow
@@ -250,7 +283,9 @@ Response:
 
 ## Configuration
 
-Key environment variables:
+### Backend Environment Variables
+
+Key environment variables (in `.env`):
 
 | Variable | Description | Default |
 |----------|-------------|---------|
@@ -262,6 +297,20 @@ Key environment variables:
 | `QDRANT_PORT` | Qdrant port | 6333 |
 | `LLM_MODEL` | OpenAI model for classification | gpt-4o-mini |
 | `EMBEDDING_MODEL` | Model for embeddings | all-MiniLM-L6-v2 |
+
+### Frontend Environment Variables
+
+For Next.js frontend (in `services/frontend_new/.env.local`):
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `NEXT_PUBLIC_API_BASE_URL` | Orchestrator API base URL | http://localhost:8004 |
+
+For Streamlit frontend (in `.env`):
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `ORCH_API_BASE` | Orchestrator API base URL | http://localhost:8004 |
 
 ## Testing
 
@@ -279,6 +328,12 @@ python scripts/test_fixed_pipeline.py
 ```bash
 # Orchestrator
 curl http://localhost:8004/
+
+# Next.js Frontend
+open http://localhost:3000
+
+# Streamlit Frontend (legacy)
+open http://localhost:8501
 
 # Neo4j Browser
 open http://localhost:7474
@@ -314,9 +369,23 @@ open http://localhost:6333/dashboard
 
 ## Troubleshooting
 
-**"Cannot connect to backend service"**
+### Frontend Issues
+
+**Next.js: "Cannot connect to backend service"**
+- Verify orchestrator is running: `curl http://localhost:8004/`
+- Check `.env.local` has correct `NEXT_PUBLIC_API_BASE_URL`
+- Ensure backend allows CORS from frontend origin
+- Check browser console for detailed errors
+
+**Next.js: Build errors**
+- Clear cache: `rm -rf services/frontend_new/.next`
+- Reinstall: `cd services/frontend_new && rm -rf node_modules && npm install`
+
+**Streamlit: "Cannot connect to backend service"**
 - Verify orchestrator is running: `curl http://localhost:8004/`
 - Check logs: `tail -f /tmp/orchestrator.log`
+
+### Backend Issues
 
 **"Request timed out"**
 - Perplexity API can be slow; wait up to 90 seconds
