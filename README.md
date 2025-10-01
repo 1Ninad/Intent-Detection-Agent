@@ -1,14 +1,14 @@
 # B2B Intent Detection Agent
 
-A production-grade AI system that helps B2B sales teams automatically discover prospect companies showing buying intent based on real-time web signals.
+AI Agent that helps sales teams automatically discover prospect companies showing buying intent based on real-time web signals.
 
 ## Overview
 
-This system analyzes web signals across multiple sources to identify companies in active buying cycles. It uses natural language processing, graph databases, and vector embeddings to find, classify, and rank potential prospects based on their likelihood to purchase.
+The agent analyzes web signals across multiple sources to identify companies in active buying cycles. It uses natural language processing, graph databases, and vector embeddings to find, classify, and rank potential prospects based on their likelihood to purchase.
 
 Sales teams can input their company description and ideal customer profile in plain English, and the system returns a ranked list of companies with evidence-backed buying signals.
 
-## Key Features
+## Features
 
 - **Natural Language Input**: Sales teams describe their company and target customers in plain English
 - **Real-time Web Search**: Integrates with Perplexity AI to discover fresh signals from across the web
@@ -22,11 +22,9 @@ Sales teams can input their company description and ideal customer profile in pl
 
 ### Technology Stack
 
-- **Backend Pipeline**: Python, FastAPI, LangGraph
+- **Backend**: Python, FastAPI, LangGraph
 - **Databases**: Neo4j (graph), Qdrant (vectors)
-- **AI/ML**: OpenAI GPT-4, Perplexity AI, SentenceTransformers
-- **Frontend**: Next.js 14, React 18, TypeScript, Tailwind CSS (legacy Streamlit available)
-- **Infrastructure**: Docker Compose
+- **AI/ML**: Perplexity API, SentenceTransformers
 
 ### System Components
 
@@ -35,7 +33,7 @@ Sales teams can input their company description and ideal customer profile in pl
 3. **Classification Service**: OpenAI-powered signal type classification with fallback rules
 4. **Scoring Engine**: Computes fit scores using weighted features (tech signals 35%, volume 25%, executive changes 20%, sentiment 10%, funding 10%)
 5. **Orchestrator**: LangGraph-based pipeline coordinating the workflow
-6. **UI**: Modern Next.js/React frontend with real-time API integration
+6. **UI**: Next.js frontend with real-time API integration
 
 ### Data Model
 
@@ -70,14 +68,14 @@ cd Intent-Detection-Agents
 2. **Install dependencies**
 ```bash
 python -m venv .venv
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+source .venv/bin/activate  
 pip install -r requirements.txt
 ```
 
 3. **Configure environment variables**
 ```bash
 cp env.example .env
-# Edit .env and add your API keys:
+# Edit .env:
 # OPENAI_API_KEY=sk-...
 # PPLX_API_KEY=pplx-...
 # NEO4J_PASSWORD=password123
@@ -88,7 +86,6 @@ cp env.example .env
 docker-compose up -d
 ```
 
-Wait 10 seconds for databases to initialize.
 
 ## Usage
 
@@ -105,46 +102,7 @@ This starts:
 - Orchestrator API (port 8004)
 - Next.js Frontend (port 3000)
 
-Then open **http://localhost:3000** in your browser.
-
-### Quick Start (Legacy Streamlit Frontend)
-
-```bash
-./run_demo.sh
-```
-
-Opens Streamlit UI on http://localhost:8501
-
-### Manual Start
-
-**Terminal 1: Start Databases**
-```bash
-docker-compose up -d
-```
-
-**Terminal 2: Start Orchestrator**
-```bash
-python -m uvicorn services.orchestrator.app:app --host 0.0.0.0 --port 8004
-```
-
-**Terminal 3: Start Frontend**
-
-For Next.js (recommended):
-```bash
-cd services/frontend_new
-npm install  # First time only
-npm run dev
-```
-
-For Streamlit (legacy):
-```bash
-streamlit run services/frontend/streamlit_app.py --server.port 8501
-```
-
-**Verify Services**
-```bash
-curl http://localhost:8004/  # Should return {"status":"ok"}
-```
+Then open **http://localhost:3000** in browser.
 
 ### Example Usage
 
@@ -191,7 +149,7 @@ Intent-Detection-Agents/
 │   │   ├── preference_service.py
 │   │   └── ranker_service.py
 │   ├── pplx_signal_search.py # Perplexity integration
-│   ├── frontend_new/         # Next.js/React frontend (RECOMMENDED)
+│   ├── frontend/             # Next.js frontend
 │   │   ├── app/              # Next.js App Router
 │   │   │   ├── page.tsx      # Main search page
 │   │   │   └── layout.tsx    # Root layout
@@ -200,8 +158,6 @@ Intent-Detection-Agents/
 │   │   │   └── types.ts      # TypeScript interfaces
 │   │   ├── package.json
 │   │   └── README.md
-│   └── frontend/             # Legacy Streamlit frontend
-│       └── streamlit_app.py
 ├── shared/
 │   └── graph.py              # Neo4j utilities
 ├── database/
@@ -280,135 +236,6 @@ Response:
   }
 }
 ```
-
-## Configuration
-
-### Backend Environment Variables
-
-Key environment variables (in `.env`):
-
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `OPENAI_API_KEY` | OpenAI API key for classification | Required |
-| `PPLX_API_KEY` | Perplexity API key for web search | Required |
-| `NEO4J_PASSWORD` | Neo4j database password | password123 |
-| `NEO4J_URI` | Neo4j connection string | bolt://localhost:7687 |
-| `QDRANT_HOST` | Qdrant host | localhost |
-| `QDRANT_PORT` | Qdrant port | 6333 |
-| `LLM_MODEL` | OpenAI model for classification | gpt-4o-mini |
-| `EMBEDDING_MODEL` | Model for embeddings | all-MiniLM-L6-v2 |
-
-### Frontend Environment Variables
-
-For Next.js frontend (in `services/frontend_new/.env.local`):
-
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `NEXT_PUBLIC_API_BASE_URL` | Orchestrator API base URL | http://localhost:8004 |
-
-For Streamlit frontend (in `.env`):
-
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `ORCH_API_BASE` | Orchestrator API base URL | http://localhost:8004 |
-
-## Testing
-
-### Run Tests
-```bash
-pytest tests/ -v
-```
-
-### Smoke Test
-```bash
-python scripts/test_fixed_pipeline.py
-```
-
-### Service Health Checks
-```bash
-# Orchestrator
-curl http://localhost:8004/
-
-# Next.js Frontend
-open http://localhost:3000
-
-# Streamlit Frontend (legacy)
-open http://localhost:8501
-
-# Neo4j Browser
-open http://localhost:7474
-
-# Qdrant Dashboard
-open http://localhost:6333/dashboard
-```
-
-## Performance
-
-- **Search latency**: 45-70 seconds per query
-- **Throughput**: 1-2 queries per minute (limited by Perplexity API)
-- **Accuracy**: 80-90% relevant prospects returned
-- **Scalability**: Handles 50-100 companies per query
-
-## Limitations
-
-1. **Learning**: System uses static scoring formula; does not learn from user feedback
-2. **Data Sources**: Currently limited to Perplexity AI web search
-3. **Real-time Updates**: Signals are fetched on-demand, not continuously updated
-4. **Authentication**: No user authentication or multi-tenancy
-5. **Evaluation**: No built-in metrics for precision/recall
-
-## Future Enhancements
-
-- User feedback tracking (accept/reject prospects)
-- Contextual bandit for personalized ranking
-- DBSCAN clustering for preference learning
-- Real-time signal updates with scheduled jobs
-- Integration with CRM systems (Salesforce, HubSpot)
-- A/B testing framework for ranking improvements
-- Additional data sources (LinkedIn, Crunchbase, news APIs)
-
-## Troubleshooting
-
-### Frontend Issues
-
-**Next.js: "Cannot connect to backend service"**
-- Verify orchestrator is running: `curl http://localhost:8004/`
-- Check `.env.local` has correct `NEXT_PUBLIC_API_BASE_URL`
-- Ensure backend allows CORS from frontend origin
-- Check browser console for detailed errors
-
-**Next.js: Build errors**
-- Clear cache: `rm -rf services/frontend_new/.next`
-- Reinstall: `cd services/frontend_new && rm -rf node_modules && npm install`
-
-**Streamlit: "Cannot connect to backend service"**
-- Verify orchestrator is running: `curl http://localhost:8004/`
-- Check logs: `tail -f /tmp/orchestrator.log`
-
-### Backend Issues
-
-**"Request timed out"**
-- Perplexity API can be slow; wait up to 90 seconds
-- Reduce number of prospects (try 5 instead of 10)
-
-**"No prospects found"**
-- Make input more specific (industry, clear signals)
-- Verify PPLX_API_KEY is valid
-
-**Database connection errors**
-- Restart databases: `docker-compose restart`
-- Check containers: `docker-compose ps`
-
-## License
-
-[Add your license here]
-
-## Contributors
-
-[Add contributors here]
-
-## Acknowledgments
-
 - Perplexity AI for web search capabilities
 - OpenAI for GPT-4 classification
 - LangChain/LangGraph for agent orchestration
