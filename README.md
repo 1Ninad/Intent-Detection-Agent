@@ -51,7 +51,7 @@ Signal {id, type, text, source, url, publishedAt, confidence}
 
 ### Example Usage
 
-### Open **https://intent-detection-agent.vercel.app/** in browser
+### Open **intent-detection-agent.vercel.app/** in browser
 
 **Input in UI:**
 ```
