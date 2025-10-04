@@ -15,10 +15,12 @@ app = FastAPI(title="Intent Orchestrator", version="1.0.0")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "http://localhost:3000",  # Next.js frontend
-        "http://localhost:8501",  # Streamlit frontend
+        "http://localhost:3000",  # Local Next.js frontend
+        "http://localhost:8501",  # Local Streamlit frontend
         "http://127.0.0.1:3000",
         "http://127.0.0.1:8501",
+        "https://intent-frontend-584414482857.asia-south1.run.app",  # Production frontend
+        "*",  # Allow all origins (you can restrict this later)
     ],
     allow_credentials=True,
     allow_methods=["*"],

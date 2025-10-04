@@ -1,0 +1,21 @@
+steps:
+  # Copy Dockerfile to services/frontend
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - 'cp Dockerfile.frontend.simple services/frontend/Dockerfile'
+
+  # Build from services/frontend directory
+  - name: 'gcr.io/cloud-builders/docker'
+    dir: 'services/frontend'
+    args:
+      - 'build'
+      - '-t'
+      - 'gcr.io/intent-detection-agent/intent-frontend:latest'
+      - '--build-arg'
+      - 'NEXT_PUBLIC_API_BASE_URL=https://intent-backend-584414482857.asia-south1.run.app'
+      - '.'
+
+images: ['gcr.io/intent-detection-agent/intent-frontend:latest']
+timeout: '1200s'

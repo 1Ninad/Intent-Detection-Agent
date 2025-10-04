@@ -1,6 +1,6 @@
 # B2B Intent Detection Agent
 
-AI Agent that helps sales teams automatically discover prospect companies showing buying intent based on real-time web signals.
+AI system that helps B2B sales teams automatically discover prospect companies showing buying intent based on real-time web signals.
 
 ## Overview
 

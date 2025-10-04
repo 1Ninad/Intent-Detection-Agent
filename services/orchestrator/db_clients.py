@@ -18,9 +18,12 @@ logger = logging.getLogger("db_clients")
 NEO4J_URI = os.getenv("NEO4J_URI", "bolt://localhost:7687")
 NEO4J_USER = os.getenv("NEO4J_USER", "neo4j")
 NEO4J_PASS = os.getenv("NEO4J_PASSWORD", "password123")
-QDRANT_URL = os.getenv("QDRANT_URL", "http://localhost:6333")
-QDRANT_COLLECTION = os.getenv("QDRANT_COLLECTION", "signals")
 
+# Qdrant config - supports both local and cloud
+QDRANT_HOST = os.getenv("QDRANT_HOST", "localhost")
+QDRANT_PORT = int(os.getenv("QDRANT_PORT", "6333"))
+QDRANT_API_KEY = os.getenv("QDRANT_API_KEY", None)  # Optional, for cloud
+QDRANT_COLLECTION = os.getenv("QDRANT_COLLECTION", "signals")
 
 # clients
 try:
@@ -33,8 +36,18 @@ except Exception as e:
     raise
 
 try:
-    qdrant_client = QdrantClient(url=QDRANT_URL)
-    logger.info("✅ Connected to Qdrant at %s", QDRANT_URL)
+    # Use cloud connection if API key is provided, else local
+    if QDRANT_API_KEY:
+        qdrant_client = QdrantClient(
+            host=QDRANT_HOST,
+            port=443 if QDRANT_API_KEY else QDRANT_PORT,
+            api_key=QDRANT_API_KEY,
+            https=True if QDRANT_API_KEY else False
+        )
+        logger.info("✅ Connected to Qdrant Cloud at %s", QDRANT_HOST)
+    else:
+        qdrant_client = QdrantClient(host=QDRANT_HOST, port=QDRANT_PORT)
+        logger.info("✅ Connected to Qdrant at %s:%s", QDRANT_HOST, QDRANT_PORT)
 except Exception as e:
     logger.error("❌ Failed to connect Qdrant: %s", e)
     raise

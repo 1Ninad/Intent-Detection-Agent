@@ -1,0 +1,61 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+ENV/
+
+# Node - but preserve services/frontend/node_modules
+node_modules/
+!services/frontend/node_modules/
+.next/
+!services/frontend/.next/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Git
+.git/
+.gitignore
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Environment - but we need package files
+.env
+.env.local
+.env.*.local
+
+# Database volumes
+neo4j/
+qdrant/
+
+# Logs
+*.log
+!package-lock.json
+logs/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Documentation
+*.md
+
+# CI/CD
+.github/
+.gitlab-ci.yml
+
+# Claude
+.claude/
