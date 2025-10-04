@@ -48,85 +48,18 @@ Signal {id, type, text, source, url, publishedAt, confidence}
 - Signal embeddings with metadata (company, type, source, timestamp)
 - 384-dimensional vectors using sentence-transformers/all-MiniLM-L6-v2
 
-## Installation
-
-### Prerequisites
-
-- Python 3.11+
-- Node.js 18+ (for Next.js frontend)
-- Docker and Docker Compose
-- API keys for: OpenAI, Perplexity AI
-
-### Setup
-
-1. **Clone the repository**
-```bash
-git clone <repository-url>
-cd Intent-Detection-Agents
-```
-
-2. **Install dependencies**
-```bash
-python -m venv .venv
-source .venv/bin/activate  
-pip install -r requirements.txt
-```
-
-3. **Configure environment variables**
-```bash
-cp env.example .env
-# Edit .env:
-# OPENAI_API_KEY=sk-...
-# PPLX_API_KEY=pplx-...
-# NEO4J_PASSWORD=password123
-```
-
-4. **Start databases**
-```bash
-docker-compose up -d
-```
-
-
-## Usage
-
-### Quick Start (Next.js Frontend)
-
-Run the complete system with one script:
-```bash
-./run_demo_nextjs.sh
-```
-
-This starts:
-- Neo4j (port 7474, 7687)
-- Qdrant (port 6333)
-- Orchestrator API (port 8004)
-- Next.js Frontend (port 3000)
-
-Then open **http://localhost:3000** in browser.
 
 ### Example Usage
+
+### Open **https://intent-detection-agent.vercel.app/** in browser
 
 **Input in UI:**
 ```
 We provide AI-driven analytics platforms for healthcare providers.
 Find hospitals and healthcare companies that recently announced
 AI partnerships, technology investments, or are hiring data scientists.
-Return about 8 prospects.
 ```
 
-**Output:**
-```
-Companies Found: 8
-Signals Analyzed: 24
-Web Signals: 10
-
-Ranked Prospects:
-1. mayoclinic.org        Fit Score: 0.85
-   Reasons: techSignals 0.90, recentVolume 0.75, execChanges 0.60
-
-2. kp.org                Fit Score: 0.72
-   Reasons: techSignals 0.80, recentVolume 0.65, sentiment 0.70
-```
 
 ## Project Structure
 
@@ -166,8 +99,6 @@ Intent-Detection-Agents/
 │           └── schema.cypher # Graph schema
 ├── docker-compose.yml        # Database infrastructure
 ├── requirements.txt
-├── run_demo_nextjs.sh       # One-command startup (Next.js)
-└── run_demo.sh              # One-command startup (Streamlit)
 ```
 
 ## Pipeline Flow
@@ -193,50 +124,3 @@ UI Display (ranked prospects)
 ```
 
 **Total processing time: 45-70 seconds**
-
-## API Reference
-
-### Orchestrator Endpoint
-
-**POST /run**
-
-Request:
-```json
-{
-  "freeText": "We provide AI analytics for healthcare. Find hospitals with AI partnerships.",
-  "useWebSearch": true,
-  "topK": 8,
-  "webSearchOptions": {
-    "recency": "month",
-    "model": "sonar-pro"
-  }
-}
-```
-
-Response:
-```json
-{
-  "runId": "run_20240130120000",
-  "processedCompanies": 8,
-  "labeledSignals": 24,
-  "results": [
-    {
-      "companyId": "mayoclinic.org",
-      "fitScore": 0.85,
-      "reasons": ["techSignals 0.90", "recentVolume 0.75"]
-    }
-  ],
-  "debug": {
-    "webSignalsCount": 10,
-    "ingestStats": {
-      "companies": 8,
-      "signals": 24,
-      "embeddings": 24
-    }
-  }
-}
-```
-- Perplexity AI for web search capabilities
-- OpenAI for GPT-4 classification
-- LangChain/LangGraph for agent orchestration
-- Neo4j and Qdrant teams for database technology
