@@ -159,20 +159,6 @@ From `results/cost_analysis.json`:
 
 **Tables**: See `figures/cost_breakdown.csv` and `figures/scalability_projections.csv`
 
----
-
-## 4.5 Comparison with Related Work
-
-From `results/ablation_studies.json`:
-
-| Approach            | Graph KB | Multi-Agent | Real-time Web | B2B Focus | Explainability | Deployment |
-|---------------------|----------|-------------|---------------|-----------|----------------|------------|
-| KGTN (Zou et al.)   | ✓        | ✗           | ✗             | ✗         | Medium         | Offline    |
-| eBay Embeddings     | ✗        | ✗           | ✓             | ✗         | Low            | Production |
-| Alibaba RL-to-Rank  | ✗        | ✓           | ✓             | ✗         | Low            | Production |
-| **Our System**      | ✓        | ✓           | ✓             | ✓         | High           | Production |
-
-**Table**: See `figures/ablation_comparison.csv`
 
 ---
 
