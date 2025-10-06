@@ -1,0 +1,52 @@
+{
+  "endToEndLatency": {
+    "perQuery": [
+      {
+        "queryId": "q1",
+        "latency": 0.02,
+        "processedCompanies": 0,
+        "labeledSignals": 0
+      },
+      {
+        "queryId": "q2",
+        "latency": 0.0,
+        "processedCompanies": 0,
+        "labeledSignals": 0
+      },
+      {
+        "queryId": "q3",
+        "latency": 0.0,
+        "processedCompanies": 0,
+        "labeledSignals": 0
+      }
+    ],
+    "aggregate": {
+      "p50": 0.0,
+      "p95": 0.02,
+      "p99": 0.02,
+      "mean": 0.01,
+      "min": 0.0,
+      "max": 0.02
+    },
+    "numRuns": 3
+  },
+  "componentBreakdown": {
+    "error": "Perplexity search failed",
+    "timings": {
+      "perplexitySearch": {
+        "error": "PPLX_API_KEY is not set"
+      }
+    }
+  },
+  "databasePerformance": {
+    "neo4jQueryLatency": {
+      "avgMs": 197.17,
+      "p95Ms": 773.54,
+      "numRuns": 5
+    },
+    "qdrantVectorSearch": {
+      "note": "Simulated: Qdrant typically 10-50ms for vector search",
+      "estimatedAvgMs": 25
+    }
+  }
+}

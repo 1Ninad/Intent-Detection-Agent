@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-10-06T15:52:01.474878",
+  "timestamp": "2025-10-06T16:05:53.996524",
   "results": {
     "costAnalysis": {
       "status": "completed",
@@ -22,14 +22,20 @@
     "classification": {
       "status": "completed",
       "outputFile": "/Users/ninadkale/Developer/VIT/EDI5/Intent-Detection-Agents/evaluation/results/classification_results.json",
-      "accuracy": 0.667,
-      "macroF1": 0.459
+      "accuracy": 0.633,
+      "macroF1": 0.439
     },
     "webSearchQuality": {
-      "status": "skipped"
+      "status": "completed",
+      "outputFile": "/Users/ninadkale/Developer/VIT/EDI5/Intent-Detection-Agents/evaluation/results/web_search_quality.json",
+      "signalRecallRate": 0.0,
+      "avgUniqueSourcesPerQuery": 0.0
     },
     "latencyPerformance": {
-      "status": "skipped"
+      "status": "completed",
+      "outputFile": "/Users/ninadkale/Developer/VIT/EDI5/Intent-Detection-Agents/evaluation/results/latency_performance.json",
+      "p50": 0.0,
+      "p95": 0.02
     }
   }
 }

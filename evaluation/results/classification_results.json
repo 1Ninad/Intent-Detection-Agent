@@ -9,11 +9,11 @@
     ],
     "matrix": [
       [
-        7,
+        6,
         0,
         0,
         0,
-        0
+        1
       ],
       [
         0,
@@ -48,9 +48,9 @@
   "metrics": {
     "perClass": {
       "tech": {
-        "precision": 0.778,
-        "recall": 1.0,
-        "f1": 0.875,
+        "precision": 0.75,
+        "recall": 0.857,
+        "f1": 0.8,
         "support": 7
       },
       "hiring": {
@@ -72,35 +72,35 @@
         "support": 2
       },
       "other": {
-        "precision": 0.643,
+        "precision": 0.6,
         "recall": 0.75,
-        "f1": 0.692,
+        "f1": 0.667,
         "support": 12
       }
     },
     "overall": {
-      "accuracy": 0.667,
-      "macroPrecision": 0.398,
-      "macroRecall": 0.55,
-      "macroF1": 0.459
+      "accuracy": 0.633,
+      "macroPrecision": 0.384,
+      "macroRecall": 0.521,
+      "macroF1": 0.439
     }
   },
   "confidenceCalibration": {
     "perBin": {
       "0.9-1.0": {
-        "count": 18,
-        "accuracy": 0.556
+        "count": 16,
+        "accuracy": 0.5
       },
       "0.8-0.9": {
-        "count": 11,
-        "accuracy": 0.545
+        "count": 13,
+        "accuracy": 0.538
       },
       "0.7-0.8": {
         "count": 1,
         "accuracy": 1.0
       }
     },
-    "expectedCalibrationError": 0.357
+    "expectedCalibrationError": 0.383
   },
   "sentimentAccuracy": {
     "total": 30,
@@ -116,11 +116,11 @@
           "sentiment": "pos"
         },
         "predicted": {
-          "type": "tech",
+          "type": "funding",
           "sentiment": "pos",
-          "confidence": 0.9
+          "confidence": 0.95
         },
-        "correct": true,
+        "correct": false,
         "sentimentCorrect": true
       },
       {
@@ -188,7 +188,7 @@
         "predicted": {
           "type": "tech",
           "sentiment": "pos",
-          "confidence": 0.9
+          "confidence": 0.85
         },
         "correct": true,
         "sentimentCorrect": true
@@ -328,7 +328,7 @@
         "predicted": {
           "type": "other",
           "sentiment": "neu",
-          "confidence": 0.75
+          "confidence": 0.7
         },
         "correct": true,
         "sentimentCorrect": false
@@ -356,7 +356,7 @@
         "predicted": {
           "type": "exec",
           "sentiment": "neg",
-          "confidence": 0.9
+          "confidence": 0.85
         },
         "correct": false,
         "sentimentCorrect": true

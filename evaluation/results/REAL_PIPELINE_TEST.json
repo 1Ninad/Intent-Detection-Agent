@@ -1,0 +1,36 @@
+{
+  "timestamp": "2025-10-06 16:08:38",
+  "num_queries": 3,
+  "results": [
+    {
+      "query_num": 1,
+      "latency_seconds": 43.98,
+      "companies_found": 4,
+      "signals_labeled": 6,
+      "estimated_cost": 0.0081
+    },
+    {
+      "query_num": 2,
+      "latency_seconds": 4.46,
+      "companies_found": 0,
+      "signals_labeled": 0,
+      "estimated_cost": 0.0075
+    },
+    {
+      "query_num": 3,
+      "latency_seconds": 60.05,
+      "companies_found": 0,
+      "signals_labeled": 0,
+      "estimated_cost": 0.0075
+    }
+  ],
+  "aggregate": {
+    "latency_p50_seconds": 43.98,
+    "latency_mean_seconds": 36.163333333333334,
+    "latency_max_seconds": 60.05,
+    "total_companies": 4,
+    "total_signals": 6,
+    "total_cost_usd": 0.0231,
+    "avg_cost_per_query_usd": 0.0077
+  }
+}

@@ -1,0 +1,249 @@
+{
+  "constraintDerivation": {
+    "perQuery": [
+      {
+        "queryId": "q1",
+        "signalTypes": {
+          "expected": [
+            "product",
+            "hiring",
+            "tech"
+          ],
+          "derived": [
+            "product",
+            "hiring",
+            "tech"
+          ],
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "industries": {
+          "expected": [
+            "Healthcare"
+          ],
+          "derived": [
+            "Data",
+            "Healthcare",
+            "AI"
+          ],
+          "precision": 0.3333333333333333,
+          "recall": 1.0
+        },
+        "geos": {
+          "expected": [],
+          "derived": [
+            "IN",
+            "CA"
+          ],
+          "precision": 0.0,
+          "recall": 1.0
+        }
+      },
+      {
+        "queryId": "q2",
+        "signalTypes": {
+          "expected": [
+            "funding",
+            "hiring"
+          ],
+          "derived": [
+            "finance"
+          ],
+          "precision": 0.0,
+          "recall": 0.0
+        },
+        "industries": {
+          "expected": [
+            "Fintech"
+          ],
+          "derived": [
+            "Security",
+            "Fintech"
+          ],
+          "precision": 0.5,
+          "recall": 1.0
+        },
+        "geos": {
+          "expected": [
+            "US"
+          ],
+          "derived": [
+            "US",
+            "IN"
+          ],
+          "precision": 0.5,
+          "recall": 1.0
+        }
+      },
+      {
+        "queryId": "q3",
+        "signalTypes": {
+          "expected": [
+            "hiring",
+            "tech"
+          ],
+          "derived": [
+            "other",
+            "hiring",
+            "tech"
+          ],
+          "precision": 0.6666666666666666,
+          "recall": 1.0
+        },
+        "industries": {
+          "expected": [
+            "SaaS"
+          ],
+          "derived": [
+            "SaaS"
+          ],
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "geos": {
+          "expected": [],
+          "derived": [
+            "IN"
+          ],
+          "precision": 0.0,
+          "recall": 1.0
+        }
+      },
+      {
+        "queryId": "q4",
+        "signalTypes": {
+          "expected": [
+            "funding",
+            "product",
+            "finance"
+          ],
+          "derived": [
+            "product",
+            "finance"
+          ],
+          "precision": 1.0,
+          "recall": 0.6666666666666666
+        },
+        "industries": {
+          "expected": [
+            "Ecommerce"
+          ],
+          "derived": [
+            "Data",
+            "Ecommerce",
+            "AI"
+          ],
+          "precision": 0.3333333333333333,
+          "recall": 1.0
+        },
+        "geos": {
+          "expected": [],
+          "derived": [
+            "US",
+            "IN"
+          ],
+          "precision": 0.0,
+          "recall": 1.0
+        }
+      },
+      {
+        "queryId": "q5",
+        "signalTypes": {
+          "expected": [
+            "funding",
+            "hiring"
+          ],
+          "derived": [
+            "other",
+            "hiring",
+            "finance"
+          ],
+          "precision": 0.3333333333333333,
+          "recall": 0.5
+        },
+        "industries": {
+          "expected": [],
+          "derived": [
+            "AI"
+          ],
+          "precision": 0.0,
+          "recall": 1.0
+        },
+        "geos": {
+          "expected": [],
+          "derived": [
+            "IN"
+          ],
+          "precision": 0.0,
+          "recall": 1.0
+        }
+      }
+    ],
+    "aggregate": {
+      "signalTypes": {
+        "avgPrecision": 0.6,
+        "avgRecall": 0.633,
+        "f1": 0.616
+      },
+      "industries": {
+        "avgPrecision": 0.433,
+        "avgRecall": 1.0,
+        "f1": 0.605
+      }
+    }
+  },
+  "signalRecall": {
+    "perQuery": [
+      {
+        "queryId": "q1",
+        "error": "PPLX_API_KEY is not set"
+      },
+      {
+        "queryId": "q2",
+        "error": "PPLX_API_KEY is not set"
+      },
+      {
+        "queryId": "q3",
+        "error": "PPLX_API_KEY is not set"
+      },
+      {
+        "queryId": "q4",
+        "error": "PPLX_API_KEY is not set"
+      },
+      {
+        "queryId": "q5",
+        "error": "PPLX_API_KEY is not set"
+      }
+    ],
+    "aggregate": {
+      "recallSuccessRate": 0.0,
+      "avgSignalsPerQuery": 0.0
+    }
+  },
+  "sourceDiversity": {
+    "perQuery": [
+      {
+        "queryId": "q1",
+        "error": "PPLX_API_KEY is not set"
+      },
+      {
+        "queryId": "q2",
+        "error": "PPLX_API_KEY is not set"
+      },
+      {
+        "queryId": "q3",
+        "error": "PPLX_API_KEY is not set"
+      },
+      {
+        "queryId": "q4",
+        "error": "PPLX_API_KEY is not set"
+      },
+      {
+        "queryId": "q5",
+        "error": "PPLX_API_KEY is not set"
+      }
+    ],
+    "overallDistribution": {},
+    "avgUniqueSourcesPerQuery": 0.0
+  }
+}
