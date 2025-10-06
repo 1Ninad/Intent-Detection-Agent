@@ -1,0 +1,96 @@
+{
+  "perQueryCost": {
+    "breakdown": {
+      "perplexityAPI": 0.0075,
+      "openAIClassification": 0.0007,
+      "infrastructure": 0.1,
+      "total": 0.1082
+    },
+    "details": {
+      "perplexity": {
+        "avgTokens": 2500,
+        "pricePerToken": 3e-06
+      },
+      "openai": {
+        "inputTokens": 1600,
+        "outputTokens": 800,
+        "signalsClassified": 8
+      },
+      "infrastructure": {
+        "monthlyTotal": 100,
+        "amortizedOverQueries": 1000
+      }
+    }
+  },
+  "costSavings": {
+    "automatedCostPerQuery": 0.1082,
+    "manualCostPerQuery": 125,
+    "savingsPerQuery": 124.89,
+    "savingsPercentage": 99.9,
+    "timeSavedHours": 2.5,
+    "assumptions": {
+      "manualResearchHours": 2.5,
+      "salesRepHourlyRate": 50
+    }
+  },
+  "scalabilityProjections": {
+    "projections": {
+      "1K": {
+        "queriesPerMonth": 1000,
+        "totalMonthlyCost": 108.2,
+        "costPerQuery": 0.1082,
+        "breakdown": {
+          "apiCosts": 8.2,
+          "infrastructureCosts": 100
+        }
+      },
+      "10K": {
+        "queriesPerMonth": 10000,
+        "totalMonthlyCost": 332.0,
+        "costPerQuery": 0.0332,
+        "breakdown": {
+          "apiCosts": 82.0,
+          "infrastructureCosts": 250.0
+        }
+      },
+      "100K": {
+        "queriesPerMonth": 100000,
+        "totalMonthlyCost": 1320.0,
+        "costPerQuery": 0.0132,
+        "breakdown": {
+          "apiCosts": 820.0,
+          "infrastructureCosts": 500
+        }
+      }
+    },
+    "note": "Infrastructure costs scale sub-linearly due to economies of scale"
+  },
+  "pricing": {
+    "perplexity": {
+      "sonar_pro_per_1k_tokens": 0.003,
+      "avg_tokens_per_query": 2500,
+      "note": "Perplexity Sonar Pro pricing"
+    },
+    "openai": {
+      "gpt4o_mini_input_per_1k": 0.00015,
+      "gpt4o_mini_output_per_1k": 0.0006,
+      "avg_input_tokens_per_signal": 200,
+      "avg_output_tokens_per_signal": 100,
+      "signals_per_query": 8,
+      "note": "OpenAI GPT-4o-mini pricing"
+    },
+    "infrastructure": {
+      "neo4j_aura_monthly": 65,
+      "qdrant_cloud_monthly": 25,
+      "compute_monthly": 10,
+      "total_monthly": 100,
+      "queries_per_month_estimate": 1000,
+      "note": "Infrastructure costs amortized across queries"
+    },
+    "manual_research": {
+      "hours_per_query": 2.5,
+      "hourly_rate_sales_rep": 50,
+      "cost_per_manual_query": 125
+    }
+  }
+}

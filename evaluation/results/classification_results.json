@@ -1,0 +1,534 @@
+{
+  "confusionMatrix": {
+    "classes": [
+      "tech",
+      "hiring",
+      "product",
+      "finance",
+      "other"
+    ],
+    "matrix": [
+      [
+        7,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        4,
+        0,
+        0,
+        0
+      ],
+      [
+        2,
+        0,
+        0,
+        0,
+        3
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        2
+      ],
+      [
+        0,
+        3,
+        0,
+        0,
+        9
+      ]
+    ]
+  },
+  "metrics": {
+    "perClass": {
+      "tech": {
+        "precision": 0.778,
+        "recall": 1.0,
+        "f1": 0.875,
+        "support": 7
+      },
+      "hiring": {
+        "precision": 0.571,
+        "recall": 1.0,
+        "f1": 0.727,
+        "support": 4
+      },
+      "product": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 5
+      },
+      "finance": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 2
+      },
+      "other": {
+        "precision": 0.643,
+        "recall": 0.75,
+        "f1": 0.692,
+        "support": 12
+      }
+    },
+    "overall": {
+      "accuracy": 0.667,
+      "macroPrecision": 0.398,
+      "macroRecall": 0.55,
+      "macroF1": 0.459
+    }
+  },
+  "confidenceCalibration": {
+    "perBin": {
+      "0.9-1.0": {
+        "count": 18,
+        "accuracy": 0.556
+      },
+      "0.8-0.9": {
+        "count": 11,
+        "accuracy": 0.545
+      },
+      "0.7-0.8": {
+        "count": 1,
+        "accuracy": 1.0
+      }
+    },
+    "expectedCalibrationError": 0.357
+  },
+  "sentimentAccuracy": {
+    "total": 30,
+    "correct": 29,
+    "accuracy": 0.967
+  },
+  "sampleResults": {
+    "perSample": [
+      {
+        "signalText": "Acme Healthcare announced a $50M partnership with Google Cloud to deploy AI diagnostics across 200 hospitals.",
+        "groundTruth": {
+          "type": "tech",
+          "sentiment": "pos"
+        },
+        "predicted": {
+          "type": "tech",
+          "sentiment": "pos",
+          "confidence": 0.9
+        },
+        "correct": true,
+        "sentimentCorrect": true
+      },
+      {
+        "signalText": "FinSecure raised $30M Series B led by Andreessen Horowitz to expand its fraud detection platform.",
+        "groundTruth": {
+          "type": "funding",
+          "sentiment": "pos"
+        },
+        "predicted": {
+          "type": "funding",
+          "sentiment": "pos",
+          "confidence": 0.95
+        },
+        "correct": true,
+        "sentimentCorrect": true
+      },
+      {
+        "signalText": "CloudOps Inc is hiring 15 DevOps engineers and SREs for its new monitoring product team.",
+        "groundTruth": {
+          "type": "hiring",
+          "sentiment": "pos"
+        },
+        "predicted": {
+          "type": "hiring",
+          "sentiment": "pos",
+          "confidence": 0.95
+        },
+        "correct": true,
+        "sentimentCorrect": true
+      },
+      {
+        "signalText": "RetailHub launched a new analytics dashboard for Shopify merchants, powered by real-time data pipelines.",
+        "groundTruth": {
+          "type": "product",
+          "sentiment": "pos"
+        },
+        "predicted": {
+          "type": "launch",
+          "sentiment": "pos",
+          "confidence": 0.95
+        },
+        "correct": false,
+        "sentimentCorrect": true
+      },
+      {
+        "signalText": "TalentAI appointed Sarah Johnson as VP of Engineering to scale the recruiting platform.",
+        "groundTruth": {
+          "type": "other",
+          "sentiment": "pos"
+        },
+        "predicted": {
+          "type": "exec",
+          "sentiment": "pos",
+          "confidence": 0.95
+        },
+        "correct": false,
+        "sentimentCorrect": true
+      },
+      {
+        "signalText": "DataFlow announced it is migrating from PostgreSQL to Snowflake to support enterprise customers.",
+        "groundTruth": {
+          "type": "tech",
+          "sentiment": "pos"
+        },
+        "predicted": {
+          "type": "tech",
+          "sentiment": "pos",
+          "confidence": 0.9
+        },
+        "correct": true,
+        "sentimentCorrect": true
+      },
+      {
+        "signalText": "MarketGrow named John Doe as Chief Marketing Officer, replacing the previous CMO who left last month.",
+        "groundTruth": {
+          "type": "other",
+          "sentiment": "pos"
+        },
+        "predicted": {
+          "type": "exec",
+          "sentiment": "pos",
+          "confidence": 0.95
+        },
+        "correct": false,
+        "sentimentCorrect": true
+      },
+      {
+        "signalText": "RemoteFirst Inc opened a new office in Austin and announced plans to double headcount by Q4.",
+        "groundTruth": {
+          "type": "other",
+          "sentiment": "pos"
+        },
+        "predicted": {
+          "type": "hiring",
+          "sentiment": "pos",
+          "confidence": 0.9
+        },
+        "correct": false,
+        "sentimentCorrect": true
+      },
+      {
+        "signalText": "FinCompliance hired 10 compliance analysts to meet new SEC regulatory requirements.",
+        "groundTruth": {
+          "type": "hiring",
+          "sentiment": "pos"
+        },
+        "predicted": {
+          "type": "hiring",
+          "sentiment": "pos",
+          "confidence": 0.95
+        },
+        "correct": true,
+        "sentimentCorrect": true
+      },
+      {
+        "signalText": "LogiChain partnered with AWS to build an AI-powered supply chain optimization platform.",
+        "groundTruth": {
+          "type": "tech",
+          "sentiment": "pos"
+        },
+        "predicted": {
+          "type": "tech",
+          "sentiment": "pos",
+          "confidence": 0.85
+        },
+        "correct": true,
+        "sentimentCorrect": true
+      },
+      {
+        "signalText": "SupportBot integrated GPT-4 into its chatbot product, reducing response times by 60%.",
+        "groundTruth": {
+          "type": "tech",
+          "sentiment": "pos"
+        },
+        "predicted": {
+          "type": "tech",
+          "sentiment": "pos",
+          "confidence": 0.95
+        },
+        "correct": true,
+        "sentimentCorrect": true
+      },
+      {
+        "signalText": "DevInfra launched a new GraphQL API gateway targeting enterprise developers.",
+        "groundTruth": {
+          "type": "product",
+          "sentiment": "pos"
+        },
+        "predicted": {
+          "type": "launch",
+          "sentiment": "pos",
+          "confidence": 0.95
+        },
+        "correct": false,
+        "sentimentCorrect": true
+      },
+      {
+        "signalText": "MediTech announced layoffs affecting 20% of workforce due to budget constraints.",
+        "groundTruth": {
+          "type": "other",
+          "sentiment": "neg"
+        },
+        "predicted": {
+          "type": "other",
+          "sentiment": "neg",
+          "confidence": 0.9
+        },
+        "correct": true,
+        "sentimentCorrect": true
+      },
+      {
+        "signalText": "SecureBank postponed its cloud migration project indefinitely citing security concerns.",
+        "groundTruth": {
+          "type": "tech",
+          "sentiment": "neg"
+        },
+        "predicted": {
+          "type": "tech",
+          "sentiment": "neg",
+          "confidence": 0.85
+        },
+        "correct": true,
+        "sentimentCorrect": true
+      },
+      {
+        "signalText": "RetailCo faces lawsuits over data breaches affecting millions of customers.",
+        "groundTruth": {
+          "type": "other",
+          "sentiment": "neg"
+        },
+        "predicted": {
+          "type": "other",
+          "sentiment": "neg",
+          "confidence": 0.85
+        },
+        "correct": true,
+        "sentimentCorrect": true
+      },
+      {
+        "signalText": "TechStart announced plans to explore strategic alternatives including potential sale.",
+        "groundTruth": {
+          "type": "other",
+          "sentiment": "neg"
+        },
+        "predicted": {
+          "type": "other",
+          "sentiment": "neu",
+          "confidence": 0.75
+        },
+        "correct": true,
+        "sentimentCorrect": false
+      },
+      {
+        "signalText": "CloudVendor reported quarterly losses and scaled back hiring plans for 2024.",
+        "groundTruth": {
+          "type": "other",
+          "sentiment": "neg"
+        },
+        "predicted": {
+          "type": "hiring",
+          "sentiment": "neg",
+          "confidence": 0.85
+        },
+        "correct": false,
+        "sentimentCorrect": true
+      },
+      {
+        "signalText": "DataCorp CEO resigned amid shareholder disputes over company strategy.",
+        "groundTruth": {
+          "type": "other",
+          "sentiment": "neg"
+        },
+        "predicted": {
+          "type": "exec",
+          "sentiment": "neg",
+          "confidence": 0.9
+        },
+        "correct": false,
+        "sentimentCorrect": true
+      },
+      {
+        "signalText": "AutoSupply delayed its AI rollout after pilot testing revealed accuracy issues.",
+        "groundTruth": {
+          "type": "tech",
+          "sentiment": "neg"
+        },
+        "predicted": {
+          "type": "tech",
+          "sentiment": "neg",
+          "confidence": 0.85
+        },
+        "correct": true,
+        "sentimentCorrect": true
+      },
+      {
+        "signalText": "SaasPro shut down its European operations and consolidated teams in the US.",
+        "groundTruth": {
+          "type": "other",
+          "sentiment": "neg"
+        },
+        "predicted": {
+          "type": "other",
+          "sentiment": "neg",
+          "confidence": 0.85
+        },
+        "correct": true,
+        "sentimentCorrect": true
+      },
+      {
+        "signalText": "FinPayments withdrew its IPO plans citing unfavorable market conditions.",
+        "groundTruth": {
+          "type": "finance",
+          "sentiment": "neg"
+        },
+        "predicted": {
+          "type": "other",
+          "sentiment": "neg",
+          "confidence": 0.85
+        },
+        "correct": false,
+        "sentimentCorrect": true
+      },
+      {
+        "signalText": "GrowthCo is hiring across all departments to support expansion into APAC markets.",
+        "groundTruth": {
+          "type": "hiring",
+          "sentiment": "pos"
+        },
+        "predicted": {
+          "type": "hiring",
+          "sentiment": "pos",
+          "confidence": 0.95
+        },
+        "correct": true,
+        "sentimentCorrect": true
+      },
+      {
+        "signalText": "APIVendor published case studies showing 10x performance improvements for Fortune 500 clients.",
+        "groundTruth": {
+          "type": "product",
+          "sentiment": "pos"
+        },
+        "predicted": {
+          "type": "tech",
+          "sentiment": "pos",
+          "confidence": 0.85
+        },
+        "correct": false,
+        "sentimentCorrect": true
+      },
+      {
+        "signalText": "HealthOS acquired MedData for $100M to expand its analytics capabilities.",
+        "groundTruth": {
+          "type": "finance",
+          "sentiment": "pos"
+        },
+        "predicted": {
+          "type": "other",
+          "sentiment": "pos",
+          "confidence": 0.85
+        },
+        "correct": false,
+        "sentimentCorrect": true
+      },
+      {
+        "signalText": "EcommHub raised $20M seed round from Y Combinator to build vertical SaaS for retailers.",
+        "groundTruth": {
+          "type": "funding",
+          "sentiment": "pos"
+        },
+        "predicted": {
+          "type": "funding",
+          "sentiment": "pos",
+          "confidence": 0.95
+        },
+        "correct": true,
+        "sentimentCorrect": true
+      },
+      {
+        "signalText": "SecureNet is building a new SOC (Security Operations Center) and hiring 25 security engineers.",
+        "groundTruth": {
+          "type": "hiring",
+          "sentiment": "pos"
+        },
+        "predicted": {
+          "type": "hiring",
+          "sentiment": "pos",
+          "confidence": 0.95
+        },
+        "correct": true,
+        "sentimentCorrect": true
+      },
+      {
+        "signalText": "MarketPlace announced beta launch of AI-powered recommendation engine.",
+        "groundTruth": {
+          "type": "product",
+          "sentiment": "pos"
+        },
+        "predicted": {
+          "type": "launch",
+          "sentiment": "pos",
+          "confidence": 0.9
+        },
+        "correct": false,
+        "sentimentCorrect": true
+      },
+      {
+        "signalText": "BizOps hired former Salesforce VP as Chief Revenue Officer.",
+        "groundTruth": {
+          "type": "other",
+          "sentiment": "pos"
+        },
+        "predicted": {
+          "type": "hiring",
+          "sentiment": "pos",
+          "confidence": 0.95
+        },
+        "correct": false,
+        "sentimentCorrect": true
+      },
+      {
+        "signalText": "LogiFlow partnered with FedEx to pilot autonomous delivery routing.",
+        "groundTruth": {
+          "type": "product",
+          "sentiment": "pos"
+        },
+        "predicted": {
+          "type": "tech",
+          "sentiment": "pos",
+          "confidence": 0.85
+        },
+        "correct": false,
+        "sentimentCorrect": true
+      },
+      {
+        "signalText": "DataPipe is migrating 50 enterprise customers from Redshift to BigQuery.",
+        "groundTruth": {
+          "type": "tech",
+          "sentiment": "pos"
+        },
+        "predicted": {
+          "type": "tech",
+          "sentiment": "pos",
+          "confidence": 0.85
+        },
+        "correct": true,
+        "sentimentCorrect": true
+      }
+    ]
+  }
+}

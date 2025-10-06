@@ -1,0 +1,10 @@
+# Per-Query Cost Breakdown
+
+| Component             |   Cost ($) |
+|:----------------------|-----------:|
+| Perplexity API        |     0.0075 |
+| OpenAI Classification |     0.0007 |
+| Infrastructure        |     0.1    |
+| Total                 |     0.1082 |
+
+**Savings vs. Manual Research**: $124.89 (99.9%)

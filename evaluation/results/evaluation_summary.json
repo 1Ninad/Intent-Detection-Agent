@@ -1,0 +1,35 @@
+{
+  "timestamp": "2025-10-06T15:52:01.474878",
+  "results": {
+    "costAnalysis": {
+      "status": "completed",
+      "outputFile": "/Users/ninadkale/Developer/VIT/EDI5/Intent-Detection-Agents/evaluation/results/cost_analysis.json",
+      "perQueryCost": 0.1082,
+      "savingsVsManual": 124.89
+    },
+    "ablationStudies": {
+      "status": "completed",
+      "outputFile": "/Users/ninadkale/Developer/VIT/EDI5/Intent-Detection-Agents/evaluation/results/ablation_studies.json",
+      "graphPrecisionGain": 20.8,
+      "modularAccuracyGain": 9.0
+    },
+    "fitScoreValidation": {
+      "status": "completed",
+      "outputFile": "/Users/ninadkale/Developer/VIT/EDI5/Intent-Detection-Agents/evaluation/results/fit_score_validation.json",
+      "correlation": 0.62,
+      "topFeature": "techSignals"
+    },
+    "classification": {
+      "status": "completed",
+      "outputFile": "/Users/ninadkale/Developer/VIT/EDI5/Intent-Detection-Agents/evaluation/results/classification_results.json",
+      "accuracy": 0.667,
+      "macroF1": 0.459
+    },
+    "webSearchQuality": {
+      "status": "skipped"
+    },
+    "latencyPerformance": {
+      "status": "skipped"
+    }
+  }
+}

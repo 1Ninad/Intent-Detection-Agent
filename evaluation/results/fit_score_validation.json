@@ -1,0 +1,358 @@
+{
+  "scoreDistribution": {
+    "scores": [
+      {
+        "companyId": "company_13",
+        "score": 0.5592158060307599,
+        "stats": {
+          "techSignals": 0.5,
+          "recentVolume": 0.8666666666666667,
+          "execChanges": 0.3333333333333333,
+          "sentiment": 0.8088247269742654,
+          "funding": 0.2
+        }
+      },
+      {
+        "companyId": "company_50",
+        "score": 0.5133772033833295,
+        "stats": {
+          "techSignals": 0.6,
+          "recentVolume": 0.4,
+          "execChanges": 0.6666666666666666,
+          "sentiment": 0.7004387004999615,
+          "funding": 0.0
+        }
+      },
+      {
+        "companyId": "company_4",
+        "score": 0.486244011559548,
+        "stats": {
+          "techSignals": 0.3,
+          "recentVolume": 0.6,
+          "execChanges": 0.6666666666666666,
+          "sentiment": 0.7791067822621464,
+          "funding": 0.2
+        }
+      },
+      {
+        "companyId": "company_14",
+        "score": 0.4712308085317359,
+        "stats": {
+          "techSignals": 0.6,
+          "recentVolume": 0.4,
+          "execChanges": 0.3333333333333333,
+          "sentiment": 0.9456414186506924,
+          "funding": 0.0
+        }
+      },
+      {
+        "companyId": "company_11",
+        "score": 0.44707835409586,
+        "stats": {
+          "techSignals": 0.3,
+          "recentVolume": 0.5333333333333333,
+          "execChanges": 0.6666666666666666,
+          "sentiment": 0.754116874291933,
+          "funding": 0.0
+        }
+      },
+      {
+        "companyId": "company_49",
+        "score": 0.44208399545963417,
+        "stats": {
+          "techSignals": 0.5,
+          "recentVolume": 0.2,
+          "execChanges": 0.6666666666666666,
+          "sentiment": 0.6375066212630084,
+          "funding": 0.2
+        }
+      },
+      {
+        "companyId": "company_32",
+        "score": 0.4255339283033335,
+        "stats": {
+          "techSignals": 0.0,
+          "recentVolume": 0.6,
+          "execChanges": 0.6666666666666666,
+          "sentiment": 0.8220059497000016,
+          "funding": 0.6
+        }
+      },
+      {
+        "companyId": "company_7",
+        "score": 0.41834022472963417,
+        "stats": {
+          "techSignals": 0.6,
+          "recentVolume": 0.06666666666666667,
+          "execChanges": 0.6666666666666666,
+          "sentiment": 0.5834022472963416,
+          "funding": 0.0
+        }
+      },
+      {
+        "companyId": "company_33",
+        "score": 0.4127699182455674,
+        "stats": {
+          "techSignals": 0.2,
+          "recentVolume": 0.3333333333333333,
+          "execChanges": 0.6666666666666666,
+          "sentiment": 0.8610325157890077,
+          "funding": 0.4
+        }
+      },
+      {
+        "companyId": "company_30",
+        "score": 0.41054698126710604,
+        "stats": {
+          "techSignals": 0.5,
+          "recentVolume": 0.4,
+          "execChanges": 0.3333333333333333,
+          "sentiment": 0.6888031460043937,
+          "funding": 0.0
+        }
+      },
+      {
+        "companyId": "company_12",
+        "score": 0.4100711473030968,
+        "stats": {
+          "techSignals": 0.3,
+          "recentVolume": 0.2,
+          "execChanges": 0.6666666666666666,
+          "sentiment": 0.8173781396976344,
+          "funding": 0.4
+        }
+      },
+      {
+        "companyId": "company_22",
+        "score": 0.40319976217303555,
+        "stats": {
+          "techSignals": 0.3,
+          "recentVolume": 0.8,
+          "execChanges": 0.0,
+          "sentiment": 0.7819976217303554,
+          "funding": 0.2
+        }
+      },
+      {
+        "companyId": "company_16",
+        "score": 0.40197771436069135,
+        "stats": {
+          "techSignals": 0.2,
+          "recentVolume": 0.5333333333333333,
+          "execChanges": 0.6666666666666666,
+          "sentiment": 0.6531104769402466,
+          "funding": 0.0
+        }
+      },
+      {
+        "companyId": "company_2",
+        "score": 0.4004325330028126,
+        "stats": {
+          "techSignals": 0.3,
+          "recentVolume": 0.26666666666666666,
+          "execChanges": 0.6666666666666666,
+          "sentiment": 0.7543253300281261,
+          "funding": 0.2
+        }
+      },
+      {
+        "companyId": "company_15",
+        "score": 0.39693491344131593,
+        "stats": {
+          "techSignals": 0.3,
+          "recentVolume": 0.6666666666666666,
+          "execChanges": 0.0,
+          "sentiment": 0.8526824677464927,
+          "funding": 0.4
+        }
+      },
+      {
+        "companyId": "company_24",
+        "score": 0.3933822327612325,
+        "stats": {
+          "techSignals": 0.3,
+          "recentVolume": 0.3333333333333333,
+          "execChanges": 0.6666666666666666,
+          "sentiment": 0.7171556609456584,
+          "funding": 0.0
+        }
+      },
+      {
+        "companyId": "company_46",
+        "score": 0.39272023791503163,
+        "stats": {
+          "techSignals": 0.5,
+          "recentVolume": 0.5333333333333333,
+          "execChanges": 0.0,
+          "sentiment": 0.6438690458169829,
+          "funding": 0.2
+        }
+      },
+      {
+        "companyId": "company_48",
+        "score": 0.3907433644476174,
+        "stats": {
+          "techSignals": 0.4,
+          "recentVolume": 0.26666666666666666,
+          "execChanges": 0.6666666666666666,
+          "sentiment": 0.5074336444761746,
+          "funding": 0.0
+        }
+      },
+      {
+        "companyId": "company_28",
+        "score": 0.38778882543257615,
+        "stats": {
+          "techSignals": 0.6,
+          "recentVolume": 0.4,
+          "execChanges": 0.0,
+          "sentiment": 0.7778882543257616,
+          "funding": 0.0
+        }
+      },
+      {
+        "companyId": "company_1",
+        "score": 0.3834589972462925,
+        "stats": {
+          "techSignals": 0.4,
+          "recentVolume": 0.2,
+          "execChanges": 0.6666666666666666,
+          "sentiment": 0.6012566391295915,
+          "funding": 0.0
+        }
+      }
+    ],
+    "distribution": {
+      "mean": 0.329,
+      "median": 0.346,
+      "std": 0.106,
+      "min": 0.087,
+      "max": 0.559
+    },
+    "histogram": {
+      "0.0-0.2": 8,
+      "0.2-0.4": 28,
+      "0.4-0.6": 14,
+      "0.6-0.8": 0,
+      "0.8-1.0": 0
+    }
+  },
+  "featureImportance": {
+    "baselineScore": 0.63,
+    "testStats": {
+      "techSignals": 0.8,
+      "recentVolume": 0.6,
+      "execChanges": 0.4,
+      "sentiment": 0.7,
+      "funding": 0.5
+    },
+    "weights": {
+      "techSignals": 0.35,
+      "recentVolume": 0.25,
+      "execChanges": 0.2,
+      "sentiment": 0.1,
+      "funding": 0.1
+    },
+    "sensitivity": {
+      "techSignals": {
+        "weight": 0.35,
+        "baselineValue": 0.8,
+        "scoreDeltaHigh": 0.056,
+        "scoreDeltaLow": 0.056,
+        "avgSensitivity": 0.056
+      },
+      "recentVolume": {
+        "weight": 0.25,
+        "baselineValue": 0.6,
+        "scoreDeltaHigh": 0.03,
+        "scoreDeltaLow": 0.03,
+        "avgSensitivity": 0.03
+      },
+      "execChanges": {
+        "weight": 0.2,
+        "baselineValue": 0.4,
+        "scoreDeltaHigh": 0.016,
+        "scoreDeltaLow": 0.016,
+        "avgSensitivity": 0.016
+      },
+      "sentiment": {
+        "weight": 0.1,
+        "baselineValue": 0.7,
+        "scoreDeltaHigh": 0.014,
+        "scoreDeltaLow": 0.014,
+        "avgSensitivity": 0.014
+      },
+      "funding": {
+        "weight": 0.1,
+        "baselineValue": 0.5,
+        "scoreDeltaHigh": 0.01,
+        "scoreDeltaLow": 0.01,
+        "avgSensitivity": 0.01
+      }
+    },
+    "ranking": [
+      "techSignals",
+      "recentVolume",
+      "execChanges",
+      "sentiment",
+      "funding"
+    ]
+  },
+  "salesFeedbackCorrelation": {
+    "numSamples": 30,
+    "correlation": 0.62,
+    "meanAbsoluteError": 0.109,
+    "samples": [
+      {
+        "companyId": "company_1",
+        "fitScore": 0.383,
+        "salesFeedback": 0.458
+      },
+      {
+        "companyId": "company_2",
+        "fitScore": 0.4,
+        "salesFeedback": 0.38
+      },
+      {
+        "companyId": "company_3",
+        "fitScore": 0.156,
+        "salesFeedback": 0.253
+      },
+      {
+        "companyId": "company_4",
+        "fitScore": 0.486,
+        "salesFeedback": 0.715
+      },
+      {
+        "companyId": "company_5",
+        "fitScore": 0.238,
+        "salesFeedback": 0.203
+      },
+      {
+        "companyId": "company_6",
+        "fitScore": 0.164,
+        "salesFeedback": 0.128
+      },
+      {
+        "companyId": "company_7",
+        "fitScore": 0.418,
+        "salesFeedback": 0.655
+      },
+      {
+        "companyId": "company_8",
+        "fitScore": 0.368,
+        "salesFeedback": 0.483
+      },
+      {
+        "companyId": "company_9",
+        "fitScore": 0.204,
+        "salesFeedback": 0.134
+      },
+      {
+        "companyId": "company_10",
+        "fitScore": 0.281,
+        "salesFeedback": 0.362
+      }
+    ]
+  }
+}

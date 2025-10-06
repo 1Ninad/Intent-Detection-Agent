@@ -1,0 +1,302 @@
+{
+  "queries": [
+    {
+      "id": "q1",
+      "freeText": "We provide AI-driven analytics platforms for healthcare providers. Find hospitals and healthcare companies that recently announced AI partnerships, technology investments, or are hiring data scientists.",
+      "expectedSignalTypes": ["tech", "hiring", "product"],
+      "expectedIndustries": ["Healthcare"],
+      "groundTruth": {
+        "relevantCompanies": ["hcahealthcare.com", "mayoclinic.org", "clevelandclinic.org"],
+        "minExpectedSignals": 5
+      }
+    },
+    {
+      "id": "q2",
+      "freeText": "Our company sells cybersecurity solutions for fintech startups. Looking for Series A/B funded fintech companies in the US that are expanding their engineering teams.",
+      "expectedSignalTypes": ["funding", "hiring"],
+      "expectedIndustries": ["Fintech"],
+      "expectedGeos": ["US"],
+      "groundTruth": {
+        "relevantCompanies": ["stripe.com", "plaid.com", "brex.com"],
+        "minExpectedSignals": 4
+      }
+    },
+    {
+      "id": "q3",
+      "freeText": "We offer cloud infrastructure monitoring tools. Find SaaS companies that recently migrated to cloud platforms, adopted Kubernetes, or hired DevOps engineers.",
+      "expectedSignalTypes": ["tech", "hiring"],
+      "expectedIndustries": ["SaaS"],
+      "groundTruth": {
+        "relevantCompanies": ["atlassian.com", "slack.com", "notion.so"],
+        "minExpectedSignals": 4
+      }
+    },
+    {
+      "id": "q4",
+      "freeText": "Our platform provides analytics for e-commerce businesses. Target online retailers that launched new product lines, raised funding, or announced partnerships in the last 30 days.",
+      "expectedSignalTypes": ["product", "funding", "finance"],
+      "expectedIndustries": ["Ecommerce"],
+      "groundTruth": {
+        "relevantCompanies": ["shopify.com", "amazon.com"],
+        "minExpectedSignals": 3
+      }
+    },
+    {
+      "id": "q5",
+      "freeText": "We sell recruiting software to fast-growing startups. Find companies that recently raised Series A funding and are actively hiring across multiple departments.",
+      "expectedSignalTypes": ["funding", "hiring"],
+      "groundTruth": {
+        "relevantCompanies": ["notion.so", "linear.app"],
+        "minExpectedSignals": 4
+      }
+    },
+    {
+      "id": "q6",
+      "freeText": "Our company provides data engineering platforms. Looking for companies hiring data engineers, analytics engineers, or building data teams.",
+      "expectedSignalTypes": ["hiring"],
+      "groundTruth": {
+        "relevantCompanies": ["databricks.com", "snowflake.com"],
+        "minExpectedSignals": 5
+      }
+    },
+    {
+      "id": "q7",
+      "freeText": "We offer marketing automation for B2B SaaS. Find companies that appointed new CMOs or VPs of Marketing, or launched new go-to-market initiatives.",
+      "expectedSignalTypes": ["other", "product"],
+      "expectedIndustries": ["SaaS"],
+      "groundTruth": {
+        "relevantCompanies": ["hubspot.com", "salesforce.com"],
+        "minExpectedSignals": 3
+      }
+    },
+    {
+      "id": "q8",
+      "freeText": "Our platform helps manage remote teams. Target companies announcing remote-first policies, opening new offices, or expanding globally.",
+      "expectedSignalTypes": ["other", "product"],
+      "groundTruth": {
+        "relevantCompanies": ["gitlab.com", "automattic.com"],
+        "minExpectedSignals": 3
+      }
+    },
+    {
+      "id": "q9",
+      "freeText": "We provide compliance software for financial services. Find banks and fintech companies facing regulatory changes, hiring compliance officers, or investing in RegTech.",
+      "expectedSignalTypes": ["hiring", "tech"],
+      "expectedIndustries": ["Fintech"],
+      "groundTruth": {
+        "relevantCompanies": ["coinbase.com", "robinhood.com"],
+        "minExpectedSignals": 4
+      }
+    },
+    {
+      "id": "q10",
+      "freeText": "Our tool optimizes supply chain operations. Looking for manufacturing and logistics companies adopting AI, partnering with tech vendors, or modernizing their tech stack.",
+      "expectedSignalTypes": ["tech", "product"],
+      "groundTruth": {
+        "relevantCompanies": ["fedex.com", "ups.com"],
+        "minExpectedSignals": 3
+      }
+    },
+    {
+      "id": "q11",
+      "freeText": "We sell customer support automation software. Find SaaS companies that are scaling support teams, integrating chatbots, or launching new support initiatives.",
+      "expectedSignalTypes": ["hiring", "tech", "product"],
+      "expectedIndustries": ["SaaS"],
+      "groundTruth": {
+        "relevantCompanies": ["zendesk.com", "intercom.com"],
+        "minExpectedSignals": 4
+      }
+    },
+    {
+      "id": "q12",
+      "freeText": "Our platform provides API infrastructure for developers. Target companies building developer tools, launching APIs, or hiring backend engineers.",
+      "expectedSignalTypes": ["product", "hiring"],
+      "groundTruth": {
+        "relevantCompanies": ["stripe.com", "twilio.com"],
+        "minExpectedSignals": 4
+      }
+    }
+  ],
+  "annotatedSignals": [
+    {
+      "signalText": "Acme Healthcare announced a $50M partnership with Google Cloud to deploy AI diagnostics across 200 hospitals.",
+      "groundTruthType": "tech",
+      "groundTruthSentiment": "pos",
+      "confidence": 0.95
+    },
+    {
+      "signalText": "FinSecure raised $30M Series B led by Andreessen Horowitz to expand its fraud detection platform.",
+      "groundTruthType": "funding",
+      "groundTruthSentiment": "pos",
+      "confidence": 0.98
+    },
+    {
+      "signalText": "CloudOps Inc is hiring 15 DevOps engineers and SREs for its new monitoring product team.",
+      "groundTruthType": "hiring",
+      "groundTruthSentiment": "pos",
+      "confidence": 0.92
+    },
+    {
+      "signalText": "RetailHub launched a new analytics dashboard for Shopify merchants, powered by real-time data pipelines.",
+      "groundTruthType": "product",
+      "groundTruthSentiment": "pos",
+      "confidence": 0.90
+    },
+    {
+      "signalText": "TalentAI appointed Sarah Johnson as VP of Engineering to scale the recruiting platform.",
+      "groundTruthType": "other",
+      "groundTruthSentiment": "pos",
+      "confidence": 0.88
+    },
+    {
+      "signalText": "DataFlow announced it is migrating from PostgreSQL to Snowflake to support enterprise customers.",
+      "groundTruthType": "tech",
+      "groundTruthSentiment": "pos",
+      "confidence": 0.85
+    },
+    {
+      "signalText": "MarketGrow named John Doe as Chief Marketing Officer, replacing the previous CMO who left last month.",
+      "groundTruthType": "other",
+      "groundTruthSentiment": "pos",
+      "confidence": 0.80
+    },
+    {
+      "signalText": "RemoteFirst Inc opened a new office in Austin and announced plans to double headcount by Q4.",
+      "groundTruthType": "other",
+      "groundTruthSentiment": "pos",
+      "confidence": 0.87
+    },
+    {
+      "signalText": "FinCompliance hired 10 compliance analysts to meet new SEC regulatory requirements.",
+      "groundTruthType": "hiring",
+      "groundTruthSentiment": "pos",
+      "confidence": 0.90
+    },
+    {
+      "signalText": "LogiChain partnered with AWS to build an AI-powered supply chain optimization platform.",
+      "groundTruthType": "tech",
+      "groundTruthSentiment": "pos",
+      "confidence": 0.93
+    },
+    {
+      "signalText": "SupportBot integrated GPT-4 into its chatbot product, reducing response times by 60%.",
+      "groundTruthType": "tech",
+      "groundTruthSentiment": "pos",
+      "confidence": 0.91
+    },
+    {
+      "signalText": "DevInfra launched a new GraphQL API gateway targeting enterprise developers.",
+      "groundTruthType": "product",
+      "groundTruthSentiment": "pos",
+      "confidence": 0.89
+    },
+    {
+      "signalText": "MediTech announced layoffs affecting 20% of workforce due to budget constraints.",
+      "groundTruthType": "other",
+      "groundTruthSentiment": "neg",
+      "confidence": 0.75
+    },
+    {
+      "signalText": "SecureBank postponed its cloud migration project indefinitely citing security concerns.",
+      "groundTruthType": "tech",
+      "groundTruthSentiment": "neg",
+      "confidence": 0.78
+    },
+    {
+      "signalText": "RetailCo faces lawsuits over data breaches affecting millions of customers.",
+      "groundTruthType": "other",
+      "groundTruthSentiment": "neg",
+      "confidence": 0.82
+    },
+    {
+      "signalText": "TechStart announced plans to explore strategic alternatives including potential sale.",
+      "groundTruthType": "other",
+      "groundTruthSentiment": "neg",
+      "confidence": 0.70
+    },
+    {
+      "signalText": "CloudVendor reported quarterly losses and scaled back hiring plans for 2024.",
+      "groundTruthType": "other",
+      "groundTruthSentiment": "neg",
+      "confidence": 0.76
+    },
+    {
+      "signalText": "DataCorp CEO resigned amid shareholder disputes over company strategy.",
+      "groundTruthType": "other",
+      "groundTruthSentiment": "neg",
+      "confidence": 0.80
+    },
+    {
+      "signalText": "AutoSupply delayed its AI rollout after pilot testing revealed accuracy issues.",
+      "groundTruthType": "tech",
+      "groundTruthSentiment": "neg",
+      "confidence": 0.73
+    },
+    {
+      "signalText": "SaasPro shut down its European operations and consolidated teams in the US.",
+      "groundTruthType": "other",
+      "groundTruthSentiment": "neg",
+      "confidence": 0.77
+    },
+    {
+      "signalText": "FinPayments withdrew its IPO plans citing unfavorable market conditions.",
+      "groundTruthType": "finance",
+      "groundTruthSentiment": "neg",
+      "confidence": 0.79
+    },
+    {
+      "signalText": "GrowthCo is hiring across all departments to support expansion into APAC markets.",
+      "groundTruthType": "hiring",
+      "groundTruthSentiment": "pos",
+      "confidence": 0.94
+    },
+    {
+      "signalText": "APIVendor published case studies showing 10x performance improvements for Fortune 500 clients.",
+      "groundTruthType": "product",
+      "groundTruthSentiment": "pos",
+      "confidence": 0.86
+    },
+    {
+      "signalText": "HealthOS acquired MedData for $100M to expand its analytics capabilities.",
+      "groundTruthType": "finance",
+      "groundTruthSentiment": "pos",
+      "confidence": 0.96
+    },
+    {
+      "signalText": "EcommHub raised $20M seed round from Y Combinator to build vertical SaaS for retailers.",
+      "groundTruthType": "funding",
+      "groundTruthSentiment": "pos",
+      "confidence": 0.97
+    },
+    {
+      "signalText": "SecureNet is building a new SOC (Security Operations Center) and hiring 25 security engineers.",
+      "groundTruthType": "hiring",
+      "groundTruthSentiment": "pos",
+      "confidence": 0.93
+    },
+    {
+      "signalText": "MarketPlace announced beta launch of AI-powered recommendation engine.",
+      "groundTruthType": "product",
+      "groundTruthSentiment": "pos",
+      "confidence": 0.88
+    },
+    {
+      "signalText": "BizOps hired former Salesforce VP as Chief Revenue Officer.",
+      "groundTruthType": "other",
+      "groundTruthSentiment": "pos",
+      "confidence": 0.85
+    },
+    {
+      "signalText": "LogiFlow partnered with FedEx to pilot autonomous delivery routing.",
+      "groundTruthType": "product",
+      "groundTruthSentiment": "pos",
+      "confidence": 0.91
+    },
+    {
+      "signalText": "DataPipe is migrating 50 enterprise customers from Redshift to BigQuery.",
+      "groundTruthType": "tech",
+      "groundTruthSentiment": "pos",
+      "confidence": 0.84
+    }
+  ]
+}
