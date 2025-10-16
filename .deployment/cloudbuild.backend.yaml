@@ -5,7 +5,7 @@ steps:
       - '-t'
       - 'gcr.io/intent-detection-agent/intent-backend:latest'
       - '-f'
-      - 'Dockerfile.backend'
+      - '.deployment/Dockerfile.backend'
       - '.'
 images:
   - 'gcr.io/intent-detection-agent/intent-backend:latest'

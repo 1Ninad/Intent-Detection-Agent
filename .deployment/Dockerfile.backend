@@ -23,8 +23,6 @@ COPY --from=builder /root/.local /root/.local
 
 # Copy application code
 COPY services/ ./services/
-COPY shared/ ./shared/
-COPY database/ ./database/
 
 # Ensure PATH includes user packages
 ENV PATH=/root/.local/bin:$PATH

@@ -569,7 +569,7 @@ def _pplx_request(messages: List[Dict[str, str]],
     headers = {"Authorization": f"Bearer {PPLX_API_KEY}", "Content-Type": "application/json"}
 
     for attempt in range(3):
-        resp = requests.post(PPLX_API_URL, headers=headers, json=payload, timeout=60)
+        resp = requests.post(PPLX_API_URL, headers=headers, json=payload, timeout=120)
         if resp.status_code >= 500:
             time.sleep(1.2 * (attempt + 1))
             continue
